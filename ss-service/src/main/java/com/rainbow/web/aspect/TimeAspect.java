@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * @author denglin
  * @version V1.0
- * @Description:
+ * @Description: filter 只能拿到原始请求的信息, Interceptor 可以拿到原始请求的信息,和方法名参数, aspect 可以拿到方法名,拿到方法参数...
  * @ClassName: TimeAspect
  * @date 2018/9/17 11:19
  */

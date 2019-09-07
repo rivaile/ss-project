@@ -1,0 +1,36 @@
+{
+  "groups": [
+    {
+      "name": "security",
+      "type": "com.rainbow.core.properties.SecurityProperties",
+      "sourceType": "com.rainbow.core.properties.SecurityProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "security.browser",
+      "type": "com.rainbow.core.properties.BrowserProperties",
+      "description": "浏览器环境配置",
+      "sourceType": "com.rainbow.core.properties.SecurityProperties"
+    },
+    {
+      "name": "security.code",
+      "type": "com.rainbow.core.properties.ValidateCodeProperties",
+      "description": "验证码配置",
+      "sourceType": "com.rainbow.core.properties.SecurityProperties"
+    },
+    {
+      "name": "security.oauth2",
+      "type": "com.rainbow.core.properties.OAuth2Properties",
+      "description": "OAuth2认证服务器配置",
+      "sourceType": "com.rainbow.core.properties.SecurityProperties"
+    },
+    {
+      "name": "security.social",
+      "type": "com.rainbow.core.properties.SocialProperties",
+      "description": "社交登录配置",
+      "sourceType": "com.rainbow.core.properties.SecurityProperties"
+    }
+  ],
+  "hints": []
+}

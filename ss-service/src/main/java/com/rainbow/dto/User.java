@@ -1,9 +1,10 @@
 package com.rainbow.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rainbow.validator.MyConstraint;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import java.util.Date;
 
@@ -51,7 +52,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    @JsonFormat
     public Date getBirthday() {
         return birthday;
     }

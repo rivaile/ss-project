@@ -24,7 +24,7 @@ import java.io.OutputStream;
 @RequestMapping("/file")
 public class FileController {
 
-    private String folder = "F:\\project";
+    private String folder = "E:\\project";
 
     @PostMapping
     public FileInfo upload(MultipartFile file) throws Exception {

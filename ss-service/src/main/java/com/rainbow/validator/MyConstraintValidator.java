@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
+/**
+ * Object 可以放在任何类型上,这个类不用我们自己声明.
+ */
 public class MyConstraintValidator implements ConstraintValidator<MyConstraint, Object> {
 
     @Autowired
