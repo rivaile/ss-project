@@ -119,6 +119,11 @@ public class UserController {
 //		appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);//app 注册
     }
 
+    /**
+     * 解析jwt信息
+     * @param user
+     * @return
+     */
     @GetMapping("/me")
     public Object getCurrentUser(Authentication user)
 //            throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException, UnsupportedEncodingException
@@ -130,7 +135,7 @@ public class UserController {
 //					.parseClaimsJws(token).getBody();
 //
 //		String company = (String) claims.get("company");
-//
+
 //		System.out.println(company);
 
         return user;
