@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author denglin
  * @version V1.0
- * @Description:
+ * @Description: @Component 直接生效, 如果没有 @Component 注解 需要在webconfig 中配置.
  * @ClassName: TimeFilter
  * @date 2018/9/15 17:36
  */

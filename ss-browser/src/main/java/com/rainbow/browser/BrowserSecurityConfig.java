@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -79,30 +80,36 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().anyRequest().permitAll();
 
-        formAuthenticationConfig.configure(http);
-
-        http.apply(validateCodeSecurityConfig)
-                    .and().apply(smsCodeAuthenticationSecurityConfig)
-                    .and().apply(springSocialConfigurer).and()
-                .rememberMe()
-                    .tokenRepository(persistentTokenRepository())
-                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                    .userDetailsService(userDetailsService).and()
-                .sessionManagement()
-                    .invalidSessionStrategy(invalidSessionStrategy)
-                    .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
-                    .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
-                     //并发登录
-                    .expiredSessionStrategy(sessionInformationExpiredStrategy).and().and()
-                .logout()
-                    .logoutUrl("/signOut")
-//                    .logoutSuccessUrl("/imooc-logout.html")
-                    .logoutSuccessHandler(logoutSuccessHandler)//url and handler 只能生效一个
-                    .deleteCookies("JSESSIONID").and()
-                .csrf().disable();
-
-        authorizeConfigManager.config(http.authorizeRequests());
+//        formAuthenticationConfig.configure(http);
+//
+//        http.apply(validateCodeSecurityConfig)
+//                .and()
+//                    .apply(smsCodeAuthenticationSecurityConfig)
+//                .and()
+//                    .apply(springSocialConfigurer)
+//                .and()
+//                .rememberMe()
+//                .tokenRepository(persistentTokenRepository())
+//                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+//                .userDetailsService(userDetailsService)
+//                .and()
+//                .sessionManagement()
+//                .invalidSessionStrategy(invalidSessionStrategy)
+//                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+////                .maxSessionsPreventsLogin(true)
+//                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+//                //并发登录
+//                .expiredSessionStrategy(sessionInformationExpiredStrategy).and().and()
+//                .logout()
+//                .logoutUrl("/signOut")
+////                    .logoutSuccessUrl("/imooc-logout.html")
+//                .logoutSuccessHandler(logoutSuccessHandler)//url and handler 只能生效一个
+//                .deleteCookies("JSESSIONID").and()
+//                .csrf().disable();
+//
+//        authorizeConfigManager.config(http.authorizeRequests());
     }
 
     @Bean

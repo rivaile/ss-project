@@ -25,12 +25,15 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Autowired
     private TimeInterceptor timeInterception;
 
+    /**
+     * 配置filter拦截器...该方式可以指定 那些 url起作用.
+     * @return
+     */
     @Bean
     public FilterRegistrationBean timeFilter() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         TimeFilter timeFilter = new TimeFilter();
         registrationBean.setFilter(timeFilter);
-
         List<String> urls = new ArrayList<>();
         urls.add("/*");
         registrationBean.setUrlPatterns(urls);
@@ -39,7 +42,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(timeInterception);
+        registry.addInterceptor(timeInterception);
     }
 
     @Override

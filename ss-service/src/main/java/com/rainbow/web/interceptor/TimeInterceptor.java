@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * @author denglin
  * @version V1.0
- * @Description:
+ * @Description: Interceptor 可以拿到类名,方法名.拿不到参数.
  * @ClassName: TimeInterceptor
  * @date 2018/9/15 17:47
  */
@@ -31,6 +31,14 @@ public class TimeInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    /**
+     * 只要方法没有抛出异常,就会被调用...
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
@@ -40,7 +48,14 @@ public class TimeInterceptor implements HandlerInterceptor {
 
     }
 
-    //只要preHandle 为true 就会被调用!!
+    /**
+     * 只要preHandle为true,就会被调用!
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
