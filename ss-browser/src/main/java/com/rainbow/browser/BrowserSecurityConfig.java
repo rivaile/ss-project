@@ -33,6 +33,7 @@ import javax.sql.DataSource;
  * @date 2018/9/17 13:29
  */
 @Configuration
+@EnableWebSecurity
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
