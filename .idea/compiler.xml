@@ -8,8 +8,8 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ss-app" />
         <module name="ss-authorize" />
-        <module name="ss-core" />
         <module name="ss-service" />
+        <module name="ss-core" />
         <module name="ss-browser" />
       </profile>
     </annotationProcessing>
