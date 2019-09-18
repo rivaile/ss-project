@@ -4,18 +4,8 @@
     <list default="true" id="2823f544-6001-4407-9f42-7faef98d97c2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ss-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/SsProjectApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/SsProjectApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/dao/SysUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/dao/mapper/SysUserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/mapper/CityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/mapper/CityMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/service/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/service/SysUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util/JsonMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util/LevelUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util/MD5Util.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util/MailUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util/PasswordUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/web/controller/SysUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/web/controller/SysUserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ss-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ss-service/src/main/resources/mapper/SysUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ss-service/src/main/resources/mapper/SysUserMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/ss-browser/target/" />
@@ -51,6 +41,12 @@
         <item name="@47.107.139.16" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="@47.107.139.16" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="ss-project: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
     </expand>
     <select />
   </component>
@@ -70,41 +66,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ss-service/src/main/resources/mapper/SysUserMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="4" selection-start-line="4" selection-end-line="15" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="das://2e832c37-61fe-4bba-b64b-c815e0aac094/schema/ss-project/table/user">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="8fca63e8-9c95-408f-9367-440944578d31">
-              <filtering>
-                <filter text="" />
-              </filtering>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="das://2e832c37-61fe-4bba-b64b-c815e0aac094/schema/ss-project/table/sys_user">
-          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-            <state projectRestartId="8fca63e8-9c95-408f-9367-440944578d31">
-              <filtering>
-                <filter text="" />
-              </filtering>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.2.0/mybatis-plus-core-3.2.0-sources.jar!/com/baomidou/mybatisplus/core/mapper/BaseMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="88" column="7" lean-forward="true" selection-start-line="88" selection-start-column="7" selection-end-line="88" selection-end-column="7" />
+            <state relative-caret-position="283">
+              <caret line="99" column="27" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ss-service/src/main/resources/mapper/SysUserMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="207">
+              <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -112,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/service/SysUserService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+            <state relative-caret-position="118">
+              <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -122,19 +96,38 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/domain/SysUser.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.2.0/mybatis-plus-extension-3.2.0-sources.jar!/com/baomidou/mybatisplus/extension/service/IService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="2033">
+              <caret line="258" column="14" selection-start-line="258" selection-start-column="7" selection-end-line="258" selection-end-column="14" />
+              <folding>
+                <element signature="e#2422#2423#0" expanded="true" />
+                <element signature="e#2480#2481#0" expanded="true" />
+                <element signature="e#4055#4056#0" expanded="true" />
+                <element signature="e#4111#4112#0" expanded="true" />
+                <element signature="e#5062#5063#0" expanded="true" />
+                <element signature="e#5111#5112#0" expanded="true" />
+                <element signature="e#6903#6904#0" expanded="true" />
+                <element signature="e#6961#6962#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ss-core/src/main/java/com/rainbow/core/validate/code/ValidateCodeFilter.java">
+        <entry file="file://$PROJECT_DIR$/ss-service/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="112" column="72" lean-forward="true" selection-start-line="112" selection-start-column="72" selection-end-line="112" selection-end-column="72" />
+            <state relative-caret-position="460">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ss-service/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -143,7 +136,7 @@
         <entry file="file://$PROJECT_DIR$/ss-browser/src/main/java/com/rainbow/browser/BrowserSecurityConfig.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="71">
-              <caret line="87" column="2" lean-forward="true" selection-start-line="87" selection-start-column="2" selection-end-line="87" selection-end-column="2" />
+              <caret line="87" column="2" selection-start-line="87" selection-start-column="2" selection-end-line="87" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,13 +154,38 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/web/controller/SysUserController.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.2.0/mybatis-plus-extension-3.2.0-sources.jar!/com/baomidou/mybatisplus/extension/service/impl/ServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="28" column="30" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="30" />
+            <state relative-caret-position="601">
+              <caret line="281" selection-start-line="281" selection-end-line="281" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2098#2099#0" expanded="true" />
+                <element signature="e#2131#2132#0" expanded="true" />
+                <element signature="e#2278#2279#0" expanded="true" />
+                <element signature="e#2326#2327#0" expanded="true" />
+                <element signature="e#2544#2545#0" expanded="true" />
+                <element signature="e#2613#2614#0" expanded="true" />
+                <element signature="e#3177#3178#0" expanded="true" />
+                <element signature="e#3234#3235#0" expanded="true" />
+                <element signature="e#9178#9179#0" expanded="true" />
+                <element signature="e#9257#9258#0" expanded="true" />
+                <element signature="e#9323#9324#0" expanded="true" />
+                <element signature="e#9381#9382#0" expanded="true" />
+                <element signature="e#9463#9464#0" expanded="true" />
+                <element signature="e#9527#9528#0" expanded="true" />
+                <element signature="e#9615#9616#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="das://2e832c37-61fe-4bba-b64b-c815e0aac094/schema/ss-project/table/sys_user">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state projectRestartId="8fca63e8-9c95-408f-9367-440944578d31">
+              <filtering>
+                <filter text="" />
+              </filtering>
             </state>
           </provider>
         </entry>
@@ -222,13 +240,13 @@
         <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util/IpUtil.java" />
         <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/dao/SysUserMapper.java" />
         <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/mapper/CityMapper.java" />
-        <option value="$PROJECT_DIR$/ss-service/pom.xml" />
-        <option value="$PROJECT_DIR$/ss-service/src/main/resources/application.properties" />
-        <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/service/SysUserService.java" />
         <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/dao/mapper/SysUserMapper.java" />
         <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/web/controller/SysUserController.java" />
         <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/SsProjectApplication.java" />
         <option value="$PROJECT_DIR$/ss-service/src/main/resources/mapper/SysUserMapper.xml" />
+        <option value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/service/SysUserService.java" />
+        <option value="$PROJECT_DIR$/ss-service/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/ss-service/pom.xml" />
       </list>
     </option>
   </component>
@@ -245,11 +263,6 @@
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="ss-service" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="ss-service" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
         </path>
       </expand>
       <select />
@@ -454,7 +467,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="database.console.LAST_STATE" value="true" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -464,19 +477,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\projects\ss-project\ss-service\src\main\resources" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\projects\ss-project\ss-service\src\main\java\com\rainbow\util" />
+      <recent name="E:\projects\ss-project\ss-service\src\main\resources\mapper" />
+      <recent name="E:\projects\ss-project\ss-browser" />
+      <recent name="E:\projects\ss-project\ss-core" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.rainbow.exception" />
       <recent name="com.rainbow.util" />
       <recent name="com.rainbow.req" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\projects\ss-project\ss-service\src\main\java\com\rainbow\util" />
-      <recent name="E:\projects\ss-project\ss-service\src\main\resources\mapper" />
-      <recent name="E:\projects\ss-project\ss-browser" />
-      <recent name="E:\projects\ss-project\ss-core" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\projects\ss-project\ss-service\src\main\resources" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -513,7 +526,7 @@
       <workItem from="1562483337063" duration="7103000" />
       <workItem from="1568599022069" duration="6515000" />
       <workItem from="1568774502333" duration="4408000" />
-      <workItem from="1568803713812" duration="2678000" />
+      <workItem from="1568803713812" duration="3687000" />
     </task>
     <task id="LOCAL-00001" summary="新增忽略文件">
       <created>1568594686445</created>
@@ -543,11 +556,18 @@
       <option name="project" value="LOCAL" />
       <updated>1568799695642</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add dependency druid">
+      <created>1568809252943</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1568809252943</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25956000" />
+    <option name="totallyTimeSpent" value="26965000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -562,7 +582,7 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.23971723" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20758355" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -573,7 +593,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3287483" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.45667124" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3781965" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.20726784" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3287483" />
@@ -584,15 +604,15 @@
       <window_info anchor="bottom" id="Database Changes" order="11" weight="0.3287483" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.2778542" />
       <window_info anchor="bottom" id="Docker" order="13" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Console" order="14" weight="0.3823934" />
+      <window_info anchor="bottom" id="Database Console" order="14" weight="0.46702558" />
       <window_info anchor="bottom" id="Messages" order="15" weight="0.32839838" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24981245" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.54677564" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.24807198" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Database" order="6" visible="true" weight="0.3277635" />
+      <window_info anchor="right" id="Database" order="6" weight="0.3277635" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.32970026" />
@@ -649,7 +669,8 @@
     <MESSAGE value="项目可运行" />
     <MESSAGE value="fix spring security post 403" />
     <MESSAGE value="add dependency mybatis plus" />
-    <option name="LAST_COMMIT_MESSAGE" value="add dependency mybatis plus" />
+    <MESSAGE value="add dependency druid" />
+    <option name="LAST_COMMIT_MESSAGE" value="add dependency druid" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -847,21 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.2.0/mybatis-plus-extension-3.2.0-sources.jar!/com/baomidou/mybatisplus/extension/service/IService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="759">
-          <caret line="65" column="7" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="7" />
-          <folding>
-            <element signature="e#2422#2423#0" expanded="true" />
-            <element signature="e#2480#2481#0" expanded="true" />
-            <element signature="e#4055#4056#0" expanded="true" />
-            <element signature="e#4111#4112#0" expanded="true" />
-            <element signature="e#5062#5063#0" expanded="true" />
-            <element signature="e#5111#5112#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.2.0/mybatis-plus-core-3.2.0-sources.jar!/com/baomidou/mybatisplus/core/conditions/AbstractWrapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1748">
@@ -873,21 +879,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
           <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.2.0/mybatis-plus-extension-3.2.0-sources.jar!/com/baomidou/mybatisplus/extension/service/impl/ServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2645">
-          <caret line="156" column="43" selection-start-line="156" selection-start-column="43" selection-end-line="156" selection-end-column="43" />
-          <folding>
-            <element signature="e#2278#2279#0" expanded="true" />
-            <element signature="e#2326#2327#0" expanded="true" />
-            <element signature="e#2544#2545#0" expanded="true" />
-            <element signature="e#2613#2614#0" expanded="true" />
-            <element signature="e#3177#3178#0" expanded="true" />
-            <element signature="e#3234#3235#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -948,20 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ss-service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="29" column="48" lean-forward="true" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ss-service/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/util/MailUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
@@ -1011,13 +988,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ss-core/src/main/java/com/rainbow/core/validate/code/ValidateCodeType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ss-core/src/main/java/com/rainbow/core/validate/code/ValidateCodeFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="383">
@@ -1025,44 +995,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ss-browser/src/main/java/com/rainbow/browser/BrowserSecurityConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="87" column="2" lean-forward="true" selection-start-line="87" selection-start-column="2" selection-end-line="87" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.2.0/mybatis-plus-core-3.2.0-sources.jar!/com/baomidou/mybatisplus/core/mapper/BaseMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="88" column="7" lean-forward="true" selection-start-line="88" selection-start-column="7" selection-end-line="88" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/domain/SysUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
+        <state relative-caret-position="-322">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/service/SysUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ss-service/src/main/resources/mapper/SysUserMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="4" selection-start-line="4" selection-end-line="15" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -1075,12 +1011,108 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ss-core/src/main/java/com/rainbow/core/validate/code/ValidateCodeType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="das://2e832c37-61fe-4bba-b64b-c815e0aac094/schema/ss-project/table/sys_user">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state projectRestartId="8fca63e8-9c95-408f-9367-440944578d31">
           <filtering>
             <filter text="" />
           </filtering>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ss-browser/src/main/java/com/rainbow/browser/BrowserSecurityConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="71">
+          <caret line="87" column="2" selection-start-line="87" selection-start-column="2" selection-end-line="87" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ss-service/src/main/resources/mapper/SysUserMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="9" column="41" selection-start-line="9" selection-start-column="41" selection-end-line="9" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.2.0/mybatis-plus-core-3.2.0-sources.jar!/com/baomidou/mybatisplus/core/mapper/BaseMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="99" column="27" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ss-service/src/main/java/com/rainbow/service/SysUserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="10" column="40" selection-start-line="10" selection-start-column="40" selection-end-line="10" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.2.0/mybatis-plus-extension-3.2.0-sources.jar!/com/baomidou/mybatisplus/extension/service/impl/ServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="601">
+          <caret line="281" selection-start-line="281" selection-end-line="281" />
+          <folding>
+            <element signature="e#2098#2099#0" expanded="true" />
+            <element signature="e#2131#2132#0" expanded="true" />
+            <element signature="e#2278#2279#0" expanded="true" />
+            <element signature="e#2326#2327#0" expanded="true" />
+            <element signature="e#2544#2545#0" expanded="true" />
+            <element signature="e#2613#2614#0" expanded="true" />
+            <element signature="e#3177#3178#0" expanded="true" />
+            <element signature="e#3234#3235#0" expanded="true" />
+            <element signature="e#9178#9179#0" expanded="true" />
+            <element signature="e#9257#9258#0" expanded="true" />
+            <element signature="e#9323#9324#0" expanded="true" />
+            <element signature="e#9381#9382#0" expanded="true" />
+            <element signature="e#9463#9464#0" expanded="true" />
+            <element signature="e#9527#9528#0" expanded="true" />
+            <element signature="e#9615#9616#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-extension/3.2.0/mybatis-plus-extension-3.2.0-sources.jar!/com/baomidou/mybatisplus/extension/service/IService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2033">
+          <caret line="258" column="14" selection-start-line="258" selection-start-column="7" selection-end-line="258" selection-end-column="14" />
+          <folding>
+            <element signature="e#2422#2423#0" expanded="true" />
+            <element signature="e#2480#2481#0" expanded="true" />
+            <element signature="e#4055#4056#0" expanded="true" />
+            <element signature="e#4111#4112#0" expanded="true" />
+            <element signature="e#5062#5063#0" expanded="true" />
+            <element signature="e#5111#5112#0" expanded="true" />
+            <element signature="e#6903#6904#0" expanded="true" />
+            <element signature="e#6961#6962#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ss-service/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ss-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
         </state>
       </provider>
     </entry>
