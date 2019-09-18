@@ -13,15 +13,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @RestController
-//@MapperScan("com.rainbow.mapper")
+@MapperScan("com.rainbow.dao.mapper")
 public class SsProjectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SsProjectApplication.class, args);
     }
 
-    @Autowired
-    private CityMapper cityMapper;
+//    @Autowired
+//    private CityMapper cityMapper;
 
     @GetMapping("/test")
     public void test() {
@@ -29,8 +29,8 @@ public class SsProjectApplication {
         city.setName("San Francisco");
         city.setState("CA");
         city.setCountry("US");
-        cityMapper.insert(city);
-        System.out.println(this.cityMapper.findById(city.getId()));
-        System.out.println(this.cityMapper.selectCityById(1));
+//        cityMapper.insert(city);
+//        System.out.println(this.cityMapper.findById(city.getId()));
+//        System.out.println(this.cityMapper.selectCityById(1));
     }
 }

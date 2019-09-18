@@ -17,5 +17,4 @@ public interface CityMapper {
     City findById(long id);
 
     City selectCityById(long id);
-
 }

@@ -1,6 +1,6 @@
 package com.rainbow.service;
 
-import com.rainbow.dao.SysUserMapper;
+import com.rainbow.dao.mapper.SysUserMapper;
 import com.rainbow.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class SysUserService {
+public class SysUserService{
 
     @Autowired
     private SysUserMapper sysUserMapper;
@@ -21,6 +21,6 @@ public class SysUserService {
     }
 
     public void updateSysUser(SysUser sysUser) {
-        sysUserMapper.update(user);
+//        sysUserMapper.update(user);
     }
 }

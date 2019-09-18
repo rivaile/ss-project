@@ -34,7 +34,7 @@ public class SysUserController {
     public void updateSysUser(@RequestBody SysUserReq sysUserReq) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserReq, sysUser);
-        return sysUserService.updateSysUser(sysUser);
+//        return sysUserService.updateSysUser(sysUser);
     }
 
 
