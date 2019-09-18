@@ -2,10 +2,10 @@ package com.rainbow.service;
 
 import com.rainbow.dao.SysUserMapper;
 import com.rainbow.domain.SysUser;
-import com.rainbow.req.SysUserReq;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class SysUserService {
@@ -14,7 +14,13 @@ public class SysUserService {
     private SysUserMapper sysUserMapper;
 
     public Integer addSysUser(SysUser user) {
+        user.setOperator("system");
+        user.setOperateIp("192.168.1.1");
+        user.setOperateTime(new Date());
         return sysUserMapper.insert(user);
     }
 
+    public void updateSysUser(SysUser sysUser) {
+        sysUserMapper.update(user);
+    }
 }

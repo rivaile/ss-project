@@ -1,7 +1,6 @@
 package com.rainbow.web.controller;
 
 import com.rainbow.domain.SysUser;
-import com.rainbow.dto.User;
 import com.rainbow.req.SysUserReq;
 import com.rainbow.service.SysUserService;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/sys/user")
@@ -23,25 +21,21 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-
-    @GetMapping
-    public User getUser() {
-        return new User();
-    }
-
     @ApiOperation(value = "添加用户")
     @PostMapping
-    public Integer addSysUser(@RequestBody SysUserReq sysUserReq) {
-
-        logger.info("--create--" + sysUserReq);
-
+    public Integer addSysUser(@Valid @RequestBody SysUserReq sysUserReq) {
         SysUser sysUser = new SysUser();
         BeanUtils.copyProperties(sysUserReq, sysUser);
-        sysUser.setOperator("system");
-        sysUser.setOperateIp("192.168.1.1");
-        sysUser.setOperateTime(new Date());
         return sysUserService.addSysUser(sysUser);
-//        return 1;
     }
+
+    @ApiOperation(value = "修改用户")
+    @PutMapping
+    public void updateSysUser(@RequestBody SysUserReq sysUserReq) {
+        SysUser sysUser = new SysUser();
+        BeanUtils.copyProperties(sysUserReq, sysUser);
+        return sysUserService.updateSysUser(sysUser);
+    }
+
 
 }

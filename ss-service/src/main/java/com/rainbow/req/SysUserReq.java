@@ -18,8 +18,6 @@ public class SysUserReq {
     @Length(min = 1, max = 20, message = "用户名长度需要在20个字以内")
     private String username;
 
-    private String password;
-
     @NotBlank(message = "电话不可以为空")
     @Length(min = 1, max = 13, message = "电话长度需要在13个字以内")
     private String telephone;
@@ -53,14 +51,6 @@ public class SysUserReq {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getTelephone() {
