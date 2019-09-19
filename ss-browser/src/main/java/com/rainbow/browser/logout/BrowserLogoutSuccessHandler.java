@@ -13,13 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * @author denglin
- * @version V1.0
- * @Description: 默认的退出成功处理器，如果设置了security.browser.signOutUrl，则跳到配置的地址上，如果没配置，则返回json格式的响应。
- * @ClassName: BrowserLogoutSuccessHandler
- * @date 2018/9/20 16:59
- */
+
 public class BrowserLogoutSuccessHandler implements LogoutSuccessHandler {
 
     private Logger logger = LoggerFactory.getLogger(getClass());

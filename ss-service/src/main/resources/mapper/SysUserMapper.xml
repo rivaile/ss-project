@@ -2,17 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rainbow.dao.mapper.SysUserMapper">
 
-<!--    <insert id="insert" parameterType="com.rainbow.domain.SysUser">-->
-<!--        insert into sys_user-->
-<!--        (id, username, telephone,-->
-<!--         mail, password, dept_id,-->
-<!--         status, remark, operator,-->
-<!--         operate_time, operate_ip)-->
-<!--        values (-->
-<!--        #{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},-->
-<!--        #{mail,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER},-->
-<!--        #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR},-->
-<!--        #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR})-->
-<!--  </insert>-->
+    <!--    <insert id="insert" parameterType="com.rainbow.domain.SysUser">-->
+    <!--        insert into sys_user-->
+    <!--        (id, username, telephone,-->
+    <!--         mail, password, dept_id,-->
+    <!--         status, remark, operator,-->
+    <!--         operate_time, operate_ip)-->
+    <!--        values (-->
+    <!--        #{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},-->
+    <!--        #{mail,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER},-->
+    <!--        #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{operator,jdbcType=VARCHAR},-->
+    <!--        #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR})-->
+    <!--  </insert>-->
+
+    <select id="selectPageVo" resultType="com.rainbow.domain.SysUser">
+    SELECT * FROM sys_user
+</select>
+
 
 </mapper>

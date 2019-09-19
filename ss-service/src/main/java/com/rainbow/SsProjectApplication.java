@@ -13,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @RestController
-@MapperScan("com.rainbow.dao.mapper")
 public class SsProjectApplication {
 
     public static void main(String[] args) {

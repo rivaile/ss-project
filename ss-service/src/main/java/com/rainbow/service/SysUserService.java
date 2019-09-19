@@ -8,23 +8,25 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 
 @Service
-public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
+public class SysUserService  {
 
-    public Integer addSysUser(SysUser user) {
-
-        user.setOperator("system");
-        user.setOperateIp("192.168.1.1");
-        user.setOperateTime(new Date());
-
-        if (save(user)) {
-            return 1;
-        } else {
-            return 0;
-        }
-
-    }
+//    public Integer addSysUser(SysUser user) {
+//
+//        user.setOperator("system");
+//        user.setOperateIp("192.168.1.1");
+//        user.setOperateTime(new Date());
+//
+//        if (save(user)) {
+//            return 1;
+//        } else {
+//            return 0;
+//        }
+//
+//    }
 
     public void updateSysUser(SysUser sysUser) {
 //        sysUserMapper.update(user);
     }
+
+
 }
