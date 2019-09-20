@@ -1,4 +1,4 @@
-package com.rainbow.req;
+package com.rainbow.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rainbow.dao.mapper.SysUserMapper;
 import com.rainbow.domain.SysUser;
-import com.rainbow.req.SysUserReq;
+import com.rainbow.vo.SysUserReq;
 import com.rainbow.service.SysUserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/sys/user")
@@ -30,11 +29,9 @@ public class SysUserController {
 
     @ApiOperation(value = "添加用户")
     @PostMapping
-    public Integer addSysUser(@Valid @RequestBody SysUserReq sysUserReq) {
-        SysUser sysUser = new SysUser();
-        BeanUtils.copyProperties(sysUserReq, sysUser);
-//        return sysUserService.addSysUser(sysUser);
-        return  1;
+    public Integer addSysUser(@Valid @RequestBody SysUserReq req) {
+         sysUserService.addSysUser(req);
+        return 1;
     }
 
     @ApiOperation(value = "修改用户")
