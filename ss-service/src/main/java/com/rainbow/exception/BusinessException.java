@@ -1,25 +1,77 @@
 package com.rainbow.exception;
 
+import com.rainbow.enums.ReturnCode;
+
+import java.util.Objects;
+
+/**
+ * <p>
+ * Description: 业务异常
+ * </p>
+ * @author lenovo
+ * @version 1.0
+ * @since 2017年12月28日
+ */
 public class BusinessException extends RuntimeException {
 
-    public BusinessException() {
-        super();
+    /**
+     * 作用描述.[请修改]
+     */
+    private static final long serialVersionUID = -6779574015134168177L;
+
+    private String detail;
+
+    private ReturnCode code;
+
+    /**
+     * @param e      Exception
+     * @param code   Return code.
+     * @param detail error desc.
+     */
+    public BusinessException(Throwable e, ReturnCode code, String detail) {
+        super(e);
+        if (code == null) {
+            throw new IllegalArgumentException();
+        }
+        this.code = code;
+        this.detail = detail;
     }
 
-    public BusinessException(String message) {
-        super(message);
+    /**
+     * @param code Return code.
+     */
+    public BusinessException(ReturnCode code) {
+        if (code == null) {
+            throw new IllegalArgumentException();
+        }
+        this.code = code;
+        this.detail = code.getMessage();
     }
 
-    public BusinessException(String message, Throwable cause) {
-        super(message, cause);
+    public BusinessException(String status, Object... message) {
+        Objects.requireNonNull(status, "status must not be null");
+        Objects.requireNonNull(message, "message must not be null");
+        this.code = ReturnCode.valueOf(status);
+        this.detail = message.toString();
     }
 
-    public BusinessException(Throwable cause) {
-        super(cause);
+    public BusinessException(ReturnCode code, Object... args) {
+        Objects.requireNonNull(code, "code must not be null");
+        this.code = code;
+        this.detail = String.format(code.getMessage(), args);
     }
 
-    protected BusinessException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    @Override
+    public String getMessage() {
+        return this.code.getMessage();
+    }
+
+    public ReturnCode getCode() {
+        return this.code;
+    }
+
+    public String getDetail() {
+        return detail;
     }
 
 }

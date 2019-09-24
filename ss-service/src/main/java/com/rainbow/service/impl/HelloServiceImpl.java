@@ -1,4 +1,4 @@
-package com.rainbow.service;
+package com.rainbow.service.impl;
 
 import com.rainbow.service.impl.HelloService;
 import org.springframework.stereotype.Service;

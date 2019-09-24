@@ -1,10 +1,14 @@
-package com.rainbow.service;
+package com.rainbow.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Preconditions;
 import com.rainbow.dao.mapper.SysUserMapper;
 import com.rainbow.domain.SysUser;
 import com.rainbow.enums.ReturnCode;
+import com.rainbow.service.BaseService;
+import com.rainbow.service.ISysUserService;
 import com.rainbow.vo.Response;
 import com.rainbow.vo.SysUserReq;
 import org.springframework.beans.BeanUtils;
@@ -20,13 +24,16 @@ public class SysUserService extends BaseService<SysUserMapper, SysUser> implemen
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    public Response<Object> addSysUser(SysUserReq userReq) {
+    @Override
+    public Response<String> addSysUser(SysUserReq userReq) {
         //todo: 电话邮箱校验
+
+        // 判断该用户是否存在
 
         SysUser user = new SysUser();
         BeanUtils.copyProperties(userReq, user);
-        user.setPassword(passwordEncoder.encode("123456"));
+//        user.setPassword(passwordEncoder.encode("123456"));
+        user.setPassword("123456");
         user.setOperator("system");
         user.setOperateIp("192.168.1.1");
         user.setOperateTime(new Date());
@@ -36,14 +43,16 @@ public class SysUserService extends BaseService<SysUserMapper, SysUser> implemen
             return Response.success("注册成功");
         else
             return Response.error(ReturnCode.AUTH_SERVER_1010006, "注册失败");
+
     }
 
+    @Override
     public void deleteByUser() {
 
     }
 
-
-    public void updateUser(SysUserReq userReq) {
+    @Override
+    public Response updateUser(SysUserReq userReq) {
         // todo: 电话邮箱校验
         SysUser user = getById(userReq.getId());
         BeanUtils.copyProperties(userReq,
@@ -52,11 +61,22 @@ public class SysUserService extends BaseService<SysUserMapper, SysUser> implemen
         user.setOperateIp("192.168.1.1");
         user.setOperateTime(new Date());
 
+        // todo: 操作日志 > 可以使用aop实现
+        if (updateById(user))
+            return Response.success("修改成功");
+        else
+            return Response.error(ReturnCode.AUTH_SERVER_1010006, "修改失败");
     }
 
-    public void updateSysUser(SysUser sysUser) {
-//        sysUserMapper.update(user);
+    @Override
+    public Response<IPage<SysUser>> getSysUser() {
+        Response<IPage<SysUser>> pageRes = new Response<>();
+        pageRes.setResult(getBaseMapper().selectPage(new Page<SysUser>(), new QueryWrapper<SysUser>()
+                .lambda().select(SysUser::getId,
+                        SysUser::getMail,
+                        SysUser::getDeptId,
+                        SysUser::getTelephone)));
+        return pageRes;
     }
-
 
 }
