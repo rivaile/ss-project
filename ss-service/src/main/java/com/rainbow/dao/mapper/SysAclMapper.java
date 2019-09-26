@@ -1,6 +1,7 @@
 package com.rainbow.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.rainbow.domain.SysAcl;
 import com.rainbow.domain.SysRole;
 
 /**
@@ -9,6 +10,5 @@ import com.rainbow.domain.SysRole;
  * @Description:
  * @date: 2019-09-23 11:38
  */
-public interface SysRoleMapper extends BaseMapper<SysRole> {
-
+public interface SysAclMapper extends BaseMapper<SysAcl> {
 }
