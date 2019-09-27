@@ -94,7 +94,7 @@ public class UserControllerTest {
                 .param("age", "10")
                 .param("size", "15")
                 .param("page", "3")
-                .param("sort", "age,desc")
+                .param("sort", "age,desc","name,asc")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()")

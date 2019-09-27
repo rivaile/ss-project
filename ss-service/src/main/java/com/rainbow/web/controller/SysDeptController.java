@@ -4,7 +4,6 @@ import com.rainbow.domain.SysDeptExt;
 import com.rainbow.service.impl.SysDeptService;
 import com.rainbow.vo.Response;
 import com.rainbow.vo.SysDeptReq;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

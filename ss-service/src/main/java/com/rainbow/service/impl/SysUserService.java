@@ -69,14 +69,14 @@ public class SysUserService extends BaseService<SysUserMapper, SysUser> implemen
     }
 
     @Override
-    public Response<IPage<SysUser>> getSysUser() {
+    public Response<IPage<SysUser>> getSysUser(IPage page, SysUserReq req) {
+
         Response<IPage<SysUser>> pageRes = new Response<>();
-        pageRes.setResult(getBaseMapper().selectPage(new Page<SysUser>(), new QueryWrapper<SysUser>()
+        pageRes.setResult(getBaseMapper().selectPage(page, new QueryWrapper<SysUser>()
                 .lambda().select(SysUser::getId,
                         SysUser::getMail,
                         SysUser::getDeptId,
                         SysUser::getTelephone)));
         return pageRes;
     }
-
 }
