@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.rainbow.common.RequestHolder;
-import com.rainbow.dao.mapper.SysAclMapper;
-import com.rainbow.dao.mapper.SysRoleAclMapper;
-import com.rainbow.dao.mapper.SysRoleMapper;
-import com.rainbow.dao.mapper.SysRoleUserMapper;
+import com.rainbow.dao.mapper.*;
 import com.rainbow.domain.*;
 import com.rainbow.enums.ReturnCode;
 import com.rainbow.exception.BusinessException;
@@ -34,7 +31,10 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
     @Autowired
     private SysAclMapper sysAclMapper;
 
-    
+    @Autowired
+    private SysAclModuleMapper sysAclModuleMapper;
+
+
     public void save(SysRoleReq param) {
         // 校验角色是否存在
         SysRole sysRole = new SysRole();
@@ -76,13 +76,53 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
         return baseMapper.selectBatchIds(roleIdList);
     }
 
-    public void getAcl() {
-        // 1. 获取用户已分配的权限点
-        List<SysAcl> currentUserAclList = getCurrentUserAclList();
+    public List<SysAclModuleExt> getAcl(int roleId) {
+        //todo  1. 获取用户已分配的权限点   意义??
+        List<SysAcl> userAclList = getCurrentUserAclList();
 
-//        sysRoleAclMapper.
         // 2. 当前角色分配的权限点
+        List<SysAcl> roleAclList = getRoleAclList(roleId);
+
+        // 3. 当前系统的权限点.
+        List<SysAclExt> aclExtList = Lists.newArrayList();
+
+        sysAclMapper.selectList(null).forEach(it -> {
+            SysAclExt sysAclExt = new SysAclExt();
+            BeanUtils.copyProperties(it, sysAclExt);
+            if (userAclList.contains(it.getId())) {
+                sysAclExt.setHasAcl(true);
+            }
+            if (roleAclList.contains(it.getId())) {
+                sysAclExt.setChecked(true);
+            }
+            aclExtList.add(sysAclExt);
+        });
+
+        if (CollectionUtils.isEmpty(aclExtList)) {
+            return Lists.newArrayList();
+        }
+
+        // 权限模块树...
+        sysAclModuleMapper.selectList(new QueryWrapper<>());
+
+        return null;
     }
+
+    public List<SysAcl> getRoleAclList(int roleId) {
+        List<Integer> aclIdList = sysRoleAclMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
+                .select(SysRoleAcl::getAclId)
+                .eq(SysRoleAcl::getRoleId, roleId))
+                .stream()
+                .map(it -> it.getAclId())
+                .distinct()
+                .collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(aclIdList)) {
+            return Lists.newArrayList();
+        }
+        return sysAclMapper.selectList(new QueryWrapper<SysAcl>().lambda()
+                .in(SysAcl::getId, aclIdList));
+    }
+
 
     private List<SysAcl> getCurrentUserAclList() {
 
@@ -108,6 +148,7 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
                 .in(SysRoleAcl::getRoleId, userRoleIdList))
                 .stream()
                 .map(it -> it.getAclId())
+                .distinct()
                 .collect(Collectors.toList());
 
         if (CollectionUtils.isEmpty(userAclIdList)) {
