@@ -2,7 +2,6 @@ package com.rainbow.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Preconditions;
 import com.rainbow.dao.mapper.SysUserMapper;
 import com.rainbow.domain.SysUser;
@@ -11,12 +10,14 @@ import com.rainbow.service.BaseService;
 import com.rainbow.service.ISysUserService;
 import com.rainbow.vo.Response;
 import com.rainbow.vo.SysUserReq;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class SysUserService extends BaseService<SysUserMapper, SysUser> implements ISysUserService {
@@ -69,14 +70,11 @@ public class SysUserService extends BaseService<SysUserMapper, SysUser> implemen
     }
 
     @Override
-    public Response<IPage<SysUser>> getSysUser(IPage page, SysUserReq req) {
-
-        Response<IPage<SysUser>> pageRes = new Response<>();
-        pageRes.setResult(getBaseMapper().selectPage(page, new QueryWrapper<SysUser>()
-                .lambda().select(SysUser::getId,
-                        SysUser::getMail,
-                        SysUser::getDeptId,
-                        SysUser::getTelephone)));
-        return pageRes;
+    public IPage getSysUser(IPage page, SysUserReq req) {
+        return page(page, new QueryWrapper<SysUser>().lambda()
+                .eq(StringUtils.isNotEmpty(req.getUsername()), SysUser::getUsername, req.getUsername())
+                .eq(StringUtils.isNotEmpty(req.getTelephone()), SysUser::getTelephone, req.getTelephone())
+                .eq(req.getDeptId() != null, SysUser::getDeptId, req.getDeptId()));
     }
+
 }

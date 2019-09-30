@@ -1,8 +1,6 @@
 package com.rainbow.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.rainbow.domain.SysUser;
 import com.rainbow.vo.Response;
 import com.rainbow.vo.SysUserReq;
 
@@ -20,5 +18,5 @@ public interface ISysUserService {
 
     Response updateUser(SysUserReq userReq);
 
-    Response<IPage<SysUser>> getSysUser(IPage page, SysUserReq req);
+    IPage getSysUser(IPage page, SysUserReq req);
 }
