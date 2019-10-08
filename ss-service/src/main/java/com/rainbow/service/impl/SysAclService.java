@@ -25,7 +25,6 @@ public class SysAclService extends BaseService<SysAclMapper, SysAcl> implements 
 
     public void save(SysAclReq param) {
         // 是否存在相同名称的权限点
-
         SysAcl acl = new SysAcl();
         BeanUtils.copyProperties(param, acl);
         acl.setOperateIp("127.0.0.1");

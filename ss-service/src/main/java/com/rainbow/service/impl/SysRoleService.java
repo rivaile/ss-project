@@ -14,11 +14,9 @@ import com.rainbow.service.BaseService;
 import com.rainbow.service.ISysRoleService;
 import com.rainbow.vo.SysRoleReq;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -83,10 +81,10 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
         return baseMapper.selectBatchIds(roleIdList);
     }
 
-    public List<SysAclModuleExt> getAcl(int roleId) {
-        // todo  1. 获取用户已分配的权限点   意义??
-        List<SysAcl> userAclList = getCurrentUserAclList();
+    public List<SysAclModuleExt> roleTreeByRoleId(int roleId) {
 
+        // todo  1. 获取用户已分配的权限点   意义 ???
+        List<SysAcl> userAclList = getCurrentUserAclList();
         // 2. 当前角色分配的权限点
         List<SysAcl> roleAclList = getRoleAclList(roleId);
 
@@ -105,14 +103,32 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
             aclExtList.add(sysAclExt);
         });
 
+        /*----------------------挂载权限到模块树上-------------------*/
+
         if (CollectionUtils.isEmpty(aclExtList)) {
             return Lists.newArrayList();
         }
-
         // 权限模块树...
-        aclModuleTree();
+        List<SysAclModuleExt> aclModuleTree = aclModuleTree();
 
-        return null;
+        Map<Integer, List<SysAclExt>> moduleIdAclMap = aclExtList.stream()
+                .filter(it -> it.getStatus() == 1)
+                .collect(Collectors.groupingBy(SysAclExt::getAclModuleId));
+
+        bindAclsOnModuleTree(aclModuleTree, moduleIdAclMap);
+
+        return aclModuleTree;
+    }
+
+    private void bindAclsOnModuleTree(List<SysAclModuleExt> aclModuleTree,
+                                      Map<Integer, List<SysAclExt>> moduleIdAclMap) {
+        aclModuleTree.forEach(it -> {
+            List<SysAclExt> aclList = moduleIdAclMap.get(it.getId());
+            if (CollectionUtils.isNotEmpty(aclList)) {
+                Collections.sort(aclList, Comparator.comparingInt(SysAcl::getSeq));
+                it.setAclList(aclList);
+            }
+        });
     }
 
     private List<SysAclModuleExt> aclModuleTree() {

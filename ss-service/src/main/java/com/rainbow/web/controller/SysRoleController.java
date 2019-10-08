@@ -1,5 +1,6 @@
 package com.rainbow.web.controller;
 
+import com.rainbow.domain.SysAclModuleExt;
 import com.rainbow.domain.SysRole;
 import com.rainbow.service.impl.SysRoleService;
 import com.rainbow.vo.Response;
@@ -41,6 +42,33 @@ public class SysRoleController {
         return Response.success(roleService.list());
     }
 
+    /**
+     * 权限树...
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id:d+}")
+    public Response<List<SysAclModuleExt>> roleTree(@PathVariable int id) {
+        return Response.success(roleService.roleTreeByRoleId(id));
+    }
 
+    /**
+     * 角色与权限的对应关系
+     */
+    public void changeAcls() {
+    }
+
+    /**
+     * 角色与用户的对应关系
+     */
+    public void changeUsers() {
+    }
+
+    /**
+     * 角色用户
+     */
+    public void users() {
+    }
 
 }
