@@ -2,7 +2,9 @@ package com.rainbow.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import com.rainbow.common.RequestHolder;
 import com.rainbow.dao.mapper.*;
 import com.rainbow.domain.*;
@@ -11,13 +13,18 @@ import com.rainbow.exception.BusinessException;
 import com.rainbow.service.BaseService;
 import com.rainbow.service.ISysRoleService;
 import com.rainbow.vo.SysRoleReq;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.rainbow.common.Constant.ROOT;
+import static com.rainbow.common.Constant.SEPARATOR;
 
 @Service
 public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implements ISysRoleService {
@@ -77,7 +84,7 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
     }
 
     public List<SysAclModuleExt> getAcl(int roleId) {
-        //todo  1. 获取用户已分配的权限点   意义??
+        // todo  1. 获取用户已分配的权限点   意义??
         List<SysAcl> userAclList = getCurrentUserAclList();
 
         // 2. 当前角色分配的权限点
@@ -103,9 +110,47 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
         }
 
         // 权限模块树...
-        sysAclModuleMapper.selectList(new QueryWrapper<>());
+        aclModuleTree();
 
         return null;
+    }
+
+    private List<SysAclModuleExt> aclModuleTree() {
+
+        List<SysAclModuleExt> aclModuleExts = sysAclModuleMapper.selectList(null).stream().map(it -> {
+            SysAclModuleExt target = new SysAclModuleExt();
+            BeanUtils.copyProperties(it, target);
+            return target;
+        }).collect(Collectors.toList());
+
+        if (CollectionUtils.isEmpty(aclModuleExts)) {
+            return Lists.newArrayList();
+        }
+
+        Multimap<String, SysAclModuleExt> levelAclModuleMap = ArrayListMultimap.create();
+        List<SysAclModuleExt> rootList = Lists.newArrayList();
+
+        aclModuleExts.forEach(it -> {
+            levelAclModuleMap.put(it.getLevel(), it);
+            if (ROOT.equals(it.getLevel())) {
+                rootList.add(it);
+            }
+        });
+        Collections.sort(rootList, Comparator.comparingInt(SysAclModule::getSeq));
+        transformAclModuleTree(rootList, ROOT, levelAclModuleMap);
+        return rootList;
+    }
+
+    private void transformAclModuleTree(List<SysAclModuleExt> rootList, String parentLevel, Multimap<String, SysAclModuleExt> levelAclModuleMap) {
+        rootList.forEach(it -> {
+            String nextLevel = parentLevel + SEPARATOR + it.getId();
+            List<SysAclModuleExt> tempList = (List<SysAclModuleExt>) levelAclModuleMap.get(nextLevel);
+            if (CollectionUtils.isNotEmpty(tempList)) {
+                Collections.sort(tempList, Comparator.comparingInt(SysAclModule::getSeq));
+                it.setAclModuleList(tempList);
+                transformAclModuleTree(tempList, nextLevel, levelAclModuleMap);
+            }
+        });
     }
 
     public List<SysAcl> getRoleAclList(int roleId) {

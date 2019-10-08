@@ -12,8 +12,13 @@ import java.util.List;
  */
 public class SysAclModuleExt extends SysAclModule {
 
+    /**
+     * 下级模块
+     */
     private List<SysAclModuleExt> aclModuleList = Lists.newArrayList();
-
+    /**
+     * 挂载权限
+     */
     private List<SysAclExt> aclList = Lists.newArrayList();
 
     public List<SysAclModuleExt> getAclModuleList() {
