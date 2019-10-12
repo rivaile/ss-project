@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
  * @author: denglin
  * @version: v1.0
  * @Description:
- * @date: 2019-09-24 15:37
+ * @date: 2019-10-11 17:53
  */
-public class SysAclReq {
+public class AclParam {
 
     private Integer id;
 
@@ -110,7 +110,7 @@ public class SysAclReq {
 
     @Override
     public String toString() {
-        return "SysAclReq{" +
+        return "AclParam{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", aclModuleId=" + aclModuleId +

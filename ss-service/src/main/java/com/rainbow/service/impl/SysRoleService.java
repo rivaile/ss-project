@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import com.rainbow.common.RequestHolder;
 import com.rainbow.dao.mapper.*;
 import com.rainbow.domain.*;
@@ -17,6 +18,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,6 +40,10 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
 
     @Autowired
     private SysAclModuleMapper sysAclModuleMapper;
+
+    @Autowired
+    private SysAclModuleService sysAclModuleService;
+
 
 
     public void save(SysRoleReq param) {
@@ -109,7 +115,7 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
             return Lists.newArrayList();
         }
         // 权限模块树...
-        List<SysAclModuleExt> aclModuleTree = aclModuleTree();
+        List<SysAclModuleExt> aclModuleTree = sysAclModuleService.aclModuleTree();
 
         Map<Integer, List<SysAclExt>> moduleIdAclMap = aclExtList.stream()
                 .filter(it -> it.getStatus() == 1)
@@ -127,44 +133,6 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
             if (CollectionUtils.isNotEmpty(aclList)) {
                 Collections.sort(aclList, Comparator.comparingInt(SysAcl::getSeq));
                 it.setAclList(aclList);
-            }
-        });
-    }
-
-    private List<SysAclModuleExt> aclModuleTree() {
-
-        List<SysAclModuleExt> aclModuleExts = sysAclModuleMapper.selectList(null).stream().map(it -> {
-            SysAclModuleExt target = new SysAclModuleExt();
-            BeanUtils.copyProperties(it, target);
-            return target;
-        }).collect(Collectors.toList());
-
-        if (CollectionUtils.isEmpty(aclModuleExts)) {
-            return Lists.newArrayList();
-        }
-
-        Multimap<String, SysAclModuleExt> levelAclModuleMap = ArrayListMultimap.create();
-        List<SysAclModuleExt> rootList = Lists.newArrayList();
-
-        aclModuleExts.forEach(it -> {
-            levelAclModuleMap.put(it.getLevel(), it);
-            if (ROOT.equals(it.getLevel())) {
-                rootList.add(it);
-            }
-        });
-        Collections.sort(rootList, Comparator.comparingInt(SysAclModule::getSeq));
-        transformAclModuleTree(rootList, ROOT, levelAclModuleMap);
-        return rootList;
-    }
-
-    private void transformAclModuleTree(List<SysAclModuleExt> rootList, String parentLevel, Multimap<String, SysAclModuleExt> levelAclModuleMap) {
-        rootList.forEach(it -> {
-            String nextLevel = parentLevel + SEPARATOR + it.getId();
-            List<SysAclModuleExt> tempList = (List<SysAclModuleExt>) levelAclModuleMap.get(nextLevel);
-            if (CollectionUtils.isNotEmpty(tempList)) {
-                Collections.sort(tempList, Comparator.comparingInt(SysAclModule::getSeq));
-                it.setAclModuleList(tempList);
-                transformAclModuleTree(tempList, nextLevel, levelAclModuleMap);
             }
         });
     }
