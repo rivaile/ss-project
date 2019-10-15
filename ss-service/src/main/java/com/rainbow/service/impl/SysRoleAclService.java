@@ -66,4 +66,10 @@ public class SysRoleAclService extends BaseService<SysRoleAclMapper, SysRoleAcl>
 
     }
 
+    public List<Integer> getAclIdListByRoleIdList(List<Integer> roleIds) {
+        return list(new QueryWrapper<SysRoleAcl>().lambda()
+                .select(SysRoleAcl::getAclId)
+                .in(SysRoleAcl::getRoleId, roleIds)).stream()
+                .map(it -> it.getAclId()).collect(Collectors.toList());
+    }
 }

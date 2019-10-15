@@ -1,12 +1,12 @@
 package com.rainbow.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import com.rainbow.dao.mapper.SysRoleMapper;
 import com.rainbow.dao.mapper.SysRoleUserMapper;
 import com.rainbow.dao.mapper.SysUserMapper;
-import com.rainbow.domain.SysRoleAcl;
+import com.rainbow.domain.SysRole;
 import com.rainbow.domain.SysRoleUser;
 import com.rainbow.domain.SysUser;
 import com.rainbow.service.BaseService;
@@ -14,6 +14,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +31,9 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
 
     @Autowired
     private SysUserMapper userMapper;
+
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
 
     public void changeRoleUsers(int roleId, List<Integer> userIdList) {
 
@@ -86,5 +90,20 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
         }
 
         return userMapper.selectBatchIds(userIdList);
+    }
+
+    public List<Integer> getRoleIdListByUserId(int userId) {
+        return list(new QueryWrapper<SysRoleUser>().lambda()
+                .select(SysRoleUser::getRoleId).eq(SysRoleUser::getUserId, userId))
+                .stream()
+                .map(it -> it.getRoleId()).collect(Collectors.toList());
+    }
+
+    public Collection<SysRole> getRoleListByUserId(int userId) {
+        List<Integer> roleIdList = getRoleIdListByUserId(userId);
+        if (CollectionUtils.isEmpty(roleIdList)) {
+            return Lists.newArrayList();
+        }
+        return sysRoleMapper.selectBatchIds(roleIdList);
     }
 }

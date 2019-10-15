@@ -45,7 +45,6 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
     private SysAclModuleService sysAclModuleService;
 
 
-
     public void save(SysRoleReq param) {
         // 校验角色是否存在
         SysRole sysRole = new SysRole();
@@ -197,6 +196,8 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
         }
         return false;
     }
+
+
 
 }
 

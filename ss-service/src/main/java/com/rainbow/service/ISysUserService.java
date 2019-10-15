@@ -1,8 +1,11 @@
 package com.rainbow.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.rainbow.domain.SysAclModuleExt;
 import com.rainbow.vo.Response;
 import com.rainbow.vo.SysUserReq;
+
+import java.util.List;
 
 /**
  * @author: denglin
@@ -19,4 +22,6 @@ public interface ISysUserService {
     Response updateUser(SysUserReq userReq);
 
     IPage getSysUser(IPage page, SysUserReq req);
+
+    List<SysAclModuleExt> userAclTree(int userId);
 }
