@@ -107,6 +107,18 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
 
+        <!--kafka依赖-->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>2.1.6.RELEASE</version>
+        </dependency>
+        <!--logback-kafka-appender依赖-->
+        <dependency>
+            <groupId>com.github.danielwegener</groupId>
+            <artifactId>logback-kafka-appender</artifactId>
+            <version>0.2.0-RC2</version>
+        </dependency>
 
     </dependencies>
 
