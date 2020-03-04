@@ -20,7 +20,7 @@ public class PageQuery {
     private int current = 1;
 
     @Min(value = 1, message = "每页展示数量不合法")
-    private int size = 10;
+    private int pageSize = 10;
 
     @ApiModelProperty("排序格式:column1 ase,column2 desc")
     private String orderby;
@@ -29,7 +29,7 @@ public class PageQuery {
     private int offset;
 
     public int getOffset() {
-        return (current - 1) * size;
+        return (current - 1) * pageSize;
     }
 
     public int getCurrent() {
@@ -40,12 +40,12 @@ public class PageQuery {
         this.current = current;
     }
 
-    public int getSize() {
-        return size;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
     public String getOrderby() {

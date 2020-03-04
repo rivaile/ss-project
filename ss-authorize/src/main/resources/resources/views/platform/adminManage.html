@@ -63,7 +63,7 @@
 				</table>
 			</div>
 			<div style="margin-top: -30px; margin-left: 20px; margin-bottom: 20px;">
-				<uib-pagination total-items="pageInfo.totalElements" num-pages="pageInfo.totalPages" ng-model="pageInfo.page" max-size="pageInfo.maxSize" 
+				<uib-pagination total-items="pageInfo.totalElements" num-pages="pageInfo.totalPages" ng-model="pageInfo.page" max-pageSize="pageInfo.maxSize"
 					class="pagination-sm" boundary-links="true" force-ellipses="true" ng-change="changePage()" ng-disabled="pageInfo.totalElements <= 0" 
 					first-text="首页" last-text="末页" next-text="后页" previous-text="前页"></uib-pagination>
 			</div>

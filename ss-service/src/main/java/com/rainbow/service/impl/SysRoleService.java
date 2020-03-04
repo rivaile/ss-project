@@ -125,6 +125,8 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
         return aclModuleTree;
     }
 
+
+    @Transactional
     private void bindAclsOnModuleTree(List<SysAclModuleExt> aclModuleTree,
                                       Map<Integer, List<SysAclExt>> moduleIdAclMap) {
         aclModuleTree.forEach(it -> {
@@ -196,7 +198,6 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
         }
         return false;
     }
-
 
 
 }

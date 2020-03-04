@@ -137,8 +137,19 @@ public class UserController {
 //		String company = (String) claims.get("company");
 
 //		System.out.println(company);
-
         return user;
+    }
+
+    @PostMapping("/users")
+    public void getUser(@RequestBody List<User> users){
+        System.out.println(users);
+    }
+
+
+
+    @GetMapping("/xxx")
+    public void getUser1(){
+        System.out.println("---GetMapping---");
     }
 
 

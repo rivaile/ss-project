@@ -27,11 +27,11 @@ public class Response<T> implements Serializable {
     @ApiModelProperty(value = "错误详情", required = true)
     private String error;
     @ApiModelProperty(value = "返回内容", required = true)
-    private T result;
+    private T data;
     @ApiModelProperty(value = "返回时间", required = true)
     private final Date timestamp = new Date();
     @ApiModelProperty(value = "返回请求状态", required = true)
-    private boolean isSuccess;
+    private boolean success;
 
     /**
      * 创建一个状态为成功的响应
@@ -54,13 +54,13 @@ public class Response<T> implements Serializable {
     public static <T> Response<T> success(T result) {
         Response<T> rsp = new Response<>();
         rsp.setCode(ReturnCode.SUCCESS);
-        rsp.setResult(result);
+        rsp.setData(result);
         return rsp;
     }
 
     /**
      * 创建一个状态为成功的响应
-     * isSuccess 字段为true
+     * success 字段为true
      * status 为不同的业务编码
      *
      * @param result 返回内容
@@ -69,7 +69,7 @@ public class Response<T> implements Serializable {
         Response<T> rsp = new Response<>();
         rsp.setSuccess(true);
         rsp.setCode(code);
-        rsp.setResult(result);
+        rsp.setData(result);
         return rsp;
     }
 
@@ -83,7 +83,7 @@ public class Response<T> implements Serializable {
         Response<T> rsp = new Response<>();
         rsp.setCode(ReturnCode.SUCCESS);
         rsp.setMsg(message);
-        rsp.setResult(result);
+        rsp.setData(result);
         return rsp;
     }
 
@@ -152,11 +152,11 @@ public class Response<T> implements Serializable {
     /**
      * a new Dcz rsp.
      *
-     * @param result the result
+     * @param result the data
      * @author wuiang
      */
     public Response(T result) {
-        this.result = result;
+        this.data = result;
     }
 
     /**
@@ -233,21 +233,21 @@ public class Response<T> implements Serializable {
     }
 
     /**
-     * Gets result.
+     * Gets data.
      *
-     * @return the result
+     * @return the data
      */
-    public T getResult() {
-        return result;
+    public T getData() {
+        return data;
     }
 
     /**
-     * Sets result.
+     * Sets data.
      *
-     * @param result the result
+     * @param data the data
      */
-    public void setResult(T result) {
-        this.result = result;
+    public void setData(T data) {
+        this.data = data;
     }
 
     /**
@@ -262,17 +262,17 @@ public class Response<T> implements Serializable {
                 + "status='" + status + '\''
                 + ", msg='" + msg + '\''
                 + ", error='" + error + '\''
-                + ", isSuccess='" + isSuccess + '\''
-                + ", result=" + result
+                + ", success='" + success + '\''
+                + ", data=" + data
                 + ", timestamp=" + timestamp
                 + '}';
     }
 
     public boolean isSuccess() {
-        return ReturnCode.SUCCESS.value().equals(status) || isSuccess;
+        return ReturnCode.SUCCESS.value().equals(status) || success;
     }
 
     public void setSuccess(boolean success) {
-        isSuccess = success;
+        this.success = success;
     }
 }

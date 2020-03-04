@@ -22,6 +22,8 @@ public class MyConstraintValidator implements ConstraintValidator<MyConstraint, 
 
     @Override
     public boolean isValid(Object o, ConstraintValidatorContext constraintValidatorContext) {
+        // fixme
+
         System.out.println("-------------" + o);
         helloService.greeting("tom");
         return true;

@@ -87,7 +87,6 @@
             <artifactId>rxjava</artifactId>
             <version>3.0.0-RC3</version>
         </dependency>
-
     </dependencies>
 
     <build>

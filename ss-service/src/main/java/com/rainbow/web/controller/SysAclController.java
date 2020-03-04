@@ -40,7 +40,7 @@ public class SysAclController {
     public Response<IPage<SysAcl>> getAclList(@PathVariable Integer aclModuleId, PageQuery pageQuery) {
         Page page = new Page();
         page.setCurrent(pageQuery.getCurrent());
-        page.setSize(pageQuery.getSize());
+        page.setSize(pageQuery.getPageSize());
         page.setOrders(pageQuery.getOrders());
         return Response.success(sysAclService.getAclListByModuleId(aclModuleId, page));
     }
