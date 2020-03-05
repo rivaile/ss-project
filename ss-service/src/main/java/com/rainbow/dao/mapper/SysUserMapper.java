@@ -8,6 +8,6 @@ import com.rainbow.domain.SysUser;
 public interface SysUserMapper extends BaseMapper<SysUser>{
 //    Integer insert(SysUser record);
 
-    IPage<SysUser> selectPageVo(Page page);
+//    IPage<SysUser> selectPageVo(Page page);
 
 }

@@ -46,6 +46,13 @@ public class Response<T> implements Serializable {
         return rsp;
     }
 
+    public static <T> Response<T> success() {
+        Response<T> rsp = new Response<>();
+        rsp.setCode(ReturnCode.SUCCESS);
+        rsp.setMsg("操作成功!");
+        return rsp;
+    }
+
     /**
      * 创建一个状态为成功的响应
      *

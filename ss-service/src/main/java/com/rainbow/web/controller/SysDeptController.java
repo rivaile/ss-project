@@ -32,7 +32,7 @@ public class SysDeptController {
 
 
     @DeleteMapping("/{deptId}")
-    public Response deleteDept(@PathVariable Integer deptId) {
+    public Response deleteDept(@PathVariable Long deptId) {
         sysDeptService.deleteDept(deptId);
         return Response.success(null);
     }

@@ -156,7 +156,7 @@ public class SysRoleService extends BaseService<SysRoleMapper, SysRole> implemen
 
     private List<SysAcl> getCurrentUserAclList() {
 
-        int userId = RequestHolder.getCurrentUser().getId();
+        long userId = RequestHolder.getCurrentUser().getId();
 
         if (isSuperAdmin()) {
             return sysAclMapper.selectList(null);

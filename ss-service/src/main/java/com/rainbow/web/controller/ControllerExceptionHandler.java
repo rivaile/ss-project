@@ -1,6 +1,8 @@
 package com.rainbow.web.controller;
 
+import com.rainbow.enums.ReturnCode;
 import com.rainbow.exception.UserNotExistException;
+import com.rainbow.vo.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +17,14 @@ import java.util.Map;
  */
 @ControllerAdvice
 public class ControllerExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Response handleException(Exception ex) {
+        return Response.error(ReturnCode.BAD_REQUEST, ex.getMessage());
+    }
+
 
     @ExceptionHandler(UserNotExistException.class)
     @ResponseBody

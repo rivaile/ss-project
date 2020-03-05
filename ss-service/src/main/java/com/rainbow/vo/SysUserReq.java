@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 public class SysUserReq {
 
-    private Long id;
+    private Integer id;
 
     @ApiModelProperty("用户名")
     @NotBlank(message = "用户名不可以为空")
@@ -37,11 +37,11 @@ public class SysUserReq {
     @Length(min = 0, max = 200, message = "备注长度需要在200个字以内")
     private String remark = "";
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

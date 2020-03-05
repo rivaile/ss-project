@@ -15,7 +15,7 @@ public interface ISysDeptService {
 
     void addDept(SysDeptReq deptReq);
 
-    void deleteDept(int deptId);
+    void deleteDept(Long deptId);
 
     void updateDept(SysDeptReq deptReq);
 

@@ -3,10 +3,10 @@ package com.rainbow.rbac.domain;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+//import javax.persistence.Entity;
+//import javax.persistence.GeneratedValue;
+//import javax.persistence.Id;
+//import javax.persistence.Transient;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,11 +18,11 @@ import java.util.Set;
  * @ClassName: Admin
  * @date 2018/9/25 10:35
  */
-@Entity
+//@Entity
 public class Admin implements UserDetails {
 
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private Long id;
 
     private String username;
@@ -32,12 +32,12 @@ public class Admin implements UserDetails {
     /**
      * 用户有权访问的所有url，不持久化到数据库
      */
-    @Transient
+//    @Transient
     private Set<String> urls = new HashSet<>();
     /**
      * 用户有权的所有资源id，不持久化到数据库
      */
-    @Transient
+//    @Transient
     private Set<Long> resourceIds = new HashSet<>();
 
     public Set<String> getUrls() {

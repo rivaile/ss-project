@@ -76,12 +76,16 @@ public class SysUserService extends BaseService<SysUserMapper, SysUser> implemen
     }
 
     @Override
-    public void deleteByUser() {
-
+    public boolean deleteUserById(Long userId) {
+        SysUser sysUser = new SysUser();
+//        sysUser.setId(userId);
+        sysUser.setStatus(2);
+        sysUser.setOperateTime(new Date());
+        return updateById(sysUser);
     }
 
     @Override
-    public Response updateUser(SysUserReq userReq) {
+    public void updateUser(SysUserReq userReq) {
         // todo: 电话邮箱校验
         SysUser user = getById(userReq.getId());
         BeanUtils.copyProperties(userReq,
@@ -91,10 +95,7 @@ public class SysUserService extends BaseService<SysUserMapper, SysUser> implemen
         user.setOperateTime(new Date());
 
         // todo: 操作日志 > 可以使用aop实现
-        if (updateById(user))
-            return Response.success("修改成功");
-        else
-            return Response.error(ReturnCode.AUTH_SERVER_1010006, "修改失败");
+        updateById(user);
     }
 
     @Override

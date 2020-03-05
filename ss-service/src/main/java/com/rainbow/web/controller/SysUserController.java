@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Maps;
 import com.rainbow.domain.PageQuery;
 import com.rainbow.domain.SysUser;
-import com.rainbow.enums.ReturnCode;
 import com.rainbow.service.ISysUserService;
 import com.rainbow.service.impl.SysRoleUserService;
 import com.rainbow.vo.PageResponse;
@@ -41,28 +40,32 @@ public class SysUserController {
     @ApiOperation(value = "修改用户")
     @PutMapping
     public Response updateSysUser(@RequestBody SysUserReq sysUserReq) {
-        return sysUserService.updateUser(sysUserReq);
+        sysUserService.updateUser(sysUserReq);
+        return Response.success();
     }
 
     @ApiOperation(value = "查找用户")
     @GetMapping
     public PageResponse<SysUser> getUserList(PageQuery pageQuery,
                                              SysUserReq req) {
-        PageResponse<SysUser> pageRep;
-        try {
-            Page page = new Page();
-            page.setCurrent(pageQuery.getCurrent());
-            page.setSize(pageQuery.getPageSize());
-            page.setOrders(pageQuery.getOrders());
-            IPage userPage = sysUserService.getSysUser(page, req);
-            pageRep = PageResponse.success(userPage.getRecords());
-            pageRep.setTotal(userPage.getTotal());
-            pageRep.setPages(userPage.getPages());
-        } catch (Exception e) {
-            logger.error("用户列表请求异常{}", e);
-            pageRep = PageResponse.error(ReturnCode.BAD_REQUEST, e.getMessage());
-        }
+
+        Page page = new Page();
+        page.setCurrent(pageQuery.getCurrent());
+        page.setSize(pageQuery.getPageSize());
+        page.setOrders(pageQuery.getOrders());
+        IPage userPage = sysUserService.getSysUser(page, req);
+        PageResponse<SysUser> pageRep = PageResponse.success(userPage.getRecords());
+        pageRep.setTotal(userPage.getTotal());
+        pageRep.setPages(userPage.getPages());
         return pageRep;
+    }
+
+
+    @ApiOperation(value = "删除用户")
+    @DeleteMapping("/{userId}")
+    public Response deleteByUser(@PathVariable Long userId) {
+        sysUserService.deleteUserById(userId);
+        return Response.success();
     }
 
     /**

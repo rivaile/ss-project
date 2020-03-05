@@ -17,9 +17,9 @@ public interface ISysUserService {
 
     Response<String> addSysUser(SysUserReq userReq);
 
-    void deleteByUser();
+    boolean deleteUserById(Long userId);
 
-    Response updateUser(SysUserReq userReq);
+    void updateUser(SysUserReq userReq);
 
     IPage getSysUser(IPage page, SysUserReq req);
 

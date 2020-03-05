@@ -59,7 +59,7 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
     }
 
     @Override
-    public void deleteDept(int deptId) {
+    public void deleteDept(Long deptId) {
 
         Preconditions.checkNotNull(getById(deptId), "待删除的部门不存在，无法删除!");
         if (baseMapper.selectCount(new QueryWrapper<SysDept>()
