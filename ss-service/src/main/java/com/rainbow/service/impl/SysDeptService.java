@@ -140,7 +140,7 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
 
             if (CollectionUtils.isNotEmpty(nextDeptList)) {
                 Collections.sort(nextDeptList, Comparator.comparingInt(SysDept::getSeq));
-                it.setDeptList(nextDeptList);
+                it.setChildren(nextDeptList);
                 deptList2Tree(nextDeptList, nextLevel, levelDeptMap);
             }
         });

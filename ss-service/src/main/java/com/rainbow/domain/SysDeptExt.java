@@ -12,20 +12,20 @@ import java.util.List;
  */
 public class SysDeptExt extends SysDept {
 
-    private List<SysDeptExt> deptList = Lists.newArrayList();
+    private List<SysDeptExt> children = Lists.newArrayList();
 
-    public List<SysDeptExt> getDeptList() {
-        return deptList;
+    public List<SysDeptExt> getChildren() {
+        return children;
     }
 
-    public void setDeptList(List<SysDeptExt> deptList) {
-        this.deptList = deptList;
+    public void setChildren(List<SysDeptExt> children) {
+        this.children = children;
     }
 
     @Override
     public String toString() {
         return "SysDeptExt{" +
-                "deptList=" + deptList +
+                "children=" + children +
                 '}';
     }
 }
