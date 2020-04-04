@@ -1,11 +1,13 @@
 package com.rainbow.business.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.rainbow.business.system.dao.*;
-import com.rainbow.business.system.service.BaseService;
-import com.rainbow.business.system.service.ISysRoleService;
+import com.rainbow.common.BaseService;
+import com.rainbow.business.system.service.ISystemRoleService;
 import com.rainbow.common.RequestHolder;
 import com.rainbow.domain.*;
 import com.rainbow.enums.ReturnCode;
@@ -22,7 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class SysRoleService extends BaseService<SysRoleMapper, SystemRole> implements ISysRoleService {
+public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole> implements ISystemRoleService {
 
     @Autowired
     private SysRoleUserMapper sysRoleUserMapper;
@@ -196,5 +198,15 @@ public class SysRoleService extends BaseService<SysRoleMapper, SystemRole> imple
     }
 
 
+    @Override
+    public IPage<SystemRole> pageList(PageRequest request) {
+
+        Page page = new Page();
+        page.setCurrent(request.getCurrent());
+        page.setSize(request.getPageSize());
+        page.setOrders(request.getOrders());
+        IPage<SystemRole> pageResult = page(page, new QueryWrapper<SystemRole>().lambda());
+        return pageResult;
+    }
 }
 

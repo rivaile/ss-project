@@ -15,13 +15,13 @@ import com.rainbow.domain.SysAcl;
 import com.rainbow.domain.SysAclExt;
 import com.rainbow.domain.SysAclModuleExt;
 import com.rainbow.domain.SystemUser;
-import com.rainbow.business.system.service.BaseService;
+import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISystemUserService;
 import com.rainbow.enums.ReturnCode;
 import com.rainbow.enums.SystemUserStatus;
 import com.rainbow.exception.BusinessException;
 import com.rainbow.util.IpUtil;
-import com.rainbow.vo.PageSystemUserRequest;
+import com.rainbow.vo.req.PageSystemUserRequest;
 import com.rainbow.vo.req.SystemUserRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SysUserService extends BaseService<SystemUserMapper, SystemUser> implements ISystemUserService {
+public class SystemUserService extends BaseService<SystemUserMapper, SystemUser> implements ISystemUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -134,7 +134,7 @@ public class SysUserService extends BaseService<SystemUserMapper, SystemUser> im
     }
 
     @Override
-    public IPage<SystemUser> pageUser(PageSystemUserRequest request) {
+    public IPage<SystemUser> pageList(PageSystemUserRequest request) {
 
         Page page = new Page();
         page.setCurrent(request.getCurrent());

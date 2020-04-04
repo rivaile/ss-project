@@ -9,6 +9,5 @@ import com.rainbow.domain.SystemRole;
  * @Description:
  * @date: 2019-09-23 11:38
  */
-public interface SysRoleMapper extends BaseMapper<SystemRole> {
-
+public interface SystemRoleMapper extends BaseMapper<SystemRole> {
 }

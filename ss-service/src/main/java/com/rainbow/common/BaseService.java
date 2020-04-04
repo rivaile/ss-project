@@ -1,4 +1,4 @@
-package com.rainbow.business.system.service;
+package com.rainbow.common;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -9,6 +9,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * @Description: IBaseService 实现类
  * @date: 2019-09-19 17:01
  */
-public class BaseService<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements IBaseService<T> {
+public class BaseService<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
 
 }

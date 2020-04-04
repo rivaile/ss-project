@@ -1,4 +1,4 @@
-package com.rainbow.vo;
+package com.rainbow.vo.req;
 
 import com.rainbow.domain.PageRequest;
 import io.swagger.annotations.ApiModel;

@@ -9,7 +9,7 @@ import com.rainbow.domain.SysDept;
 import com.rainbow.domain.SysDeptExt;
 import com.rainbow.domain.SystemUser;
 import com.rainbow.exception.BusinessException;
-import com.rainbow.business.system.service.BaseService;
+import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISysDeptService;
 import com.rainbow.vo.SysDeptReq;
 import org.apache.commons.collections.CollectionUtils;

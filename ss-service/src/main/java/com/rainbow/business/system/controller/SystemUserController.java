@@ -6,6 +6,7 @@ import com.rainbow.business.system.service.ISystemUserService;
 import com.rainbow.business.system.service.impl.SysRoleUserService;
 import com.rainbow.domain.SystemUser;
 import com.rainbow.vo.*;
+import com.rainbow.vo.req.PageSystemUserRequest;
 import com.rainbow.vo.req.SystemUserRequest;
 import com.rainbow.vo.rsp.SystemUserResponse;
 import io.swagger.annotations.Api;
@@ -51,9 +52,9 @@ public class SystemUserController {
 
     @ApiOperation(value = "查找用户")
     @GetMapping
-    public PageResult<SystemUserResponse> pageUser(PageSystemUserRequest request) {
+    public PageResult<SystemUserResponse> pageList(PageSystemUserRequest request) {
 
-        IPage<SystemUser> pageResult = systemUserService.pageUser(request);
+        IPage<SystemUser> pageResult = systemUserService.pageList(request);
 
         List<SystemUserResponse> pageList = pageResult.getRecords().stream().map(it -> {
             SystemUserResponse response = new SystemUserResponse();

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Sets;
 import com.rainbow.business.system.dao.SysRoleAclMapper;
 import com.rainbow.domain.SysRoleAcl;
-import com.rainbow.business.system.service.BaseService;
+import com.rainbow.common.BaseService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

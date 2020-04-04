@@ -11,7 +11,7 @@ import com.rainbow.domain.SysAcl;
 import com.rainbow.domain.SysAclModule;
 import com.rainbow.domain.SysAclModuleExt;
 import com.rainbow.exception.BusinessException;
-import com.rainbow.business.system.service.BaseService;
+import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISysAclModuleService;
 import com.rainbow.util.BeanValidator;
 import com.rainbow.util.LevelUtil;

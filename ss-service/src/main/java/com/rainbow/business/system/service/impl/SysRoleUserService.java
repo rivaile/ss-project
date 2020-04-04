@@ -3,13 +3,13 @@ package com.rainbow.business.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.rainbow.business.system.dao.SysRoleMapper;
+import com.rainbow.business.system.dao.SystemRoleMapper;
 import com.rainbow.business.system.dao.SysRoleUserMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
 import com.rainbow.domain.SystemRole;
 import com.rainbow.domain.SysRoleUser;
 import com.rainbow.domain.SystemUser;
-import com.rainbow.business.system.service.BaseService;
+import com.rainbow.common.BaseService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
     private SystemUserMapper userMapper;
 
     @Autowired
-    private SysRoleMapper sysRoleMapper;
+    private SystemRoleMapper sysRoleMapper;
 
     public void changeRoleUsers(int roleId, List<Integer> userIdList) {
 

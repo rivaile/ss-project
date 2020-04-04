@@ -1,7 +1,7 @@
 package com.rainbow.business.system.controller;
 
 import com.rainbow.domain.SystemUser;
-import com.rainbow.business.system.service.impl.SysUserService;
+import com.rainbow.business.system.service.impl.SystemUserService;
 import com.rainbow.util.MD5Util;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class LoginController {
 
     @Autowired
-    private SysUserService sysUserService;
+    private SystemUserService sysUserService;
 
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");

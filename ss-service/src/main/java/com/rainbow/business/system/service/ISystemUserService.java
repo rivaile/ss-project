@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainbow.domain.SysAclModuleExt;
 import com.rainbow.domain.SystemUser;
-import com.rainbow.vo.PageSystemUserRequest;
+import com.rainbow.vo.req.PageSystemUserRequest;
 import com.rainbow.vo.req.SystemUserRequest;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public interface ISystemUserService extends IService<SystemUser> {
 
     boolean updateUser(Long id, SystemUserRequest request);
 
-    IPage pageUser(PageSystemUserRequest request);
+    IPage pageList(PageSystemUserRequest request);
 
     List<SysAclModuleExt> userAclTree(int userId);
 }

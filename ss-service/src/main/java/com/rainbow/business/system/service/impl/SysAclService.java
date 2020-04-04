@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Preconditions;
 import com.rainbow.business.system.dao.SysAclMapper;
-import com.rainbow.business.system.service.BaseService;
+import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISysAclService;
 import com.rainbow.domain.SysAcl;
 import com.rainbow.enums.ReturnCode;
