@@ -11,7 +11,7 @@ import org.springframework.validation.BindingResult;
 //@Component
 public class ValidateAspect {
 	
-	@Around("execution(* com.rainbow.web.controller.UserController.*(..))")
+	@Around("execution(* com.rainbow.business.system.controller.UserController.*(..))")
 	public Object handleValidateResult(ProceedingJoinPoint pjp) throws Throwable {
 
 		System.out.println("进入切片");

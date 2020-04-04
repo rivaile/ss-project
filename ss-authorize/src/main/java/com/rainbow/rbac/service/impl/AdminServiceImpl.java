@@ -3,7 +3,7 @@ package com.rainbow.rbac.service.impl;
 import com.rainbow.rbac.domain.Admin;
 import com.rainbow.rbac.dto.AdminCondition;
 import com.rainbow.rbac.dto.AdminInfo;
-import com.rainbow.rbac.repository.AdminRepository;
+//import com.rainbow.rbac.repository.AdminRepository;
 import com.rainbow.rbac.service.AdminService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    private AdminRepository adminRepository;
+//    @Autowired
+//    private AdminRepository adminRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -35,7 +35,7 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = new Admin();
         BeanUtils.copyProperties(adminInfo, admin);
         admin.setPassword(passwordEncoder.encode("123"));
-        adminRepository.save(admin);
+//        adminRepository.save(admin);
         adminInfo.setId(admin.getId());
 
         return adminInfo;

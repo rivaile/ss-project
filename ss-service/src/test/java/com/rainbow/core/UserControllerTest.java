@@ -39,7 +39,7 @@ public class UserControllerTest {
     @Test
     public void createOK() throws Exception {
         Date date = new Date();
-        String content = "{\"username\":\"tom\",\"password\":null,\"birthday\":" + date.getTime() + "}";
+        String content = "{\"username\":\"tom\",\"password\":null,\"birthday\":\"" + date.getTime() + "\"}";
         String reuslt = mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(content))
                 .andExpect(status().isOk())
@@ -94,7 +94,7 @@ public class UserControllerTest {
                 .param("age", "10")
                 .param("size", "15")
                 .param("page", "3")
-                .param("sort", "age,desc","name,asc")
+                .param("sort", "age,desc", "name,asc")
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()")
@@ -102,7 +102,6 @@ public class UserControllerTest {
                 .andReturn().getResponse().getContentAsString();
         System.out.println(result);
     }
-
 
 
 }

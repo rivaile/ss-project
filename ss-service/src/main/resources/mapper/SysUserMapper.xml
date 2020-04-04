@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.rainbow.dao.mapper.SysUserMapper">
+<mapper namespace="com.rainbow.business.system.dao.SystemUserMapper">
 
-    <!--    <insert id="insert" parameterType="com.rainbow.domain.SysUser">-->
+    <!--    <insert id="insert" parameterType="com.rainbow.domain.SystemUserser">-->
     <!--        insert into sys_user-->
     <!--        (id, username, telephone,-->
     <!--         mail, password, dept_id,-->
@@ -15,7 +15,7 @@
     <!--        #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR})-->
     <!--  </insert>-->
 
-    <select id="selectPageVo" resultType="com.rainbow.domain.SysUser">
+    <select id="selectPageVo" resultType="com.rainbow.domain.SystemUser">
     SELECT * FROM sys_user
 </select>
 

@@ -42,6 +42,7 @@
         </dependency>
 
         <!--  热加载-->
+<!--        https://blog.csdn.net/wshl1234567/article/details/78486138-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

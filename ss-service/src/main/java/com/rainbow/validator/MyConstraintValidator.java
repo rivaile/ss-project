@@ -1,7 +1,7 @@
 package com.rainbow.validator;
 
 
-import com.rainbow.service.impl.HelloService;
+import com.rainbow.business.system.service.impl.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.ConstraintValidator;

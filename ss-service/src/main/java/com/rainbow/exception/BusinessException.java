@@ -5,19 +5,12 @@ import com.rainbow.enums.ReturnCode;
 import java.util.Objects;
 
 /**
- * <p>
- * Description: 业务异常
- * </p>
- * @author lenovo
+ * @author lin.deng
  * @version 1.0
+ * @Description: 业务异常
  * @since 2017年12月28日
  */
 public class BusinessException extends RuntimeException {
-
-    /**
-     * 作用描述.[请修改]
-     */
-    private static final long serialVersionUID = -6779574015134168177L;
 
     private String detail;
 
@@ -73,5 +66,4 @@ public class BusinessException extends RuntimeException {
     public String getDetail() {
         return detail;
     }
-
 }
