@@ -1,16 +1,16 @@
 package com.rainbow.common;
 
-import com.rainbow.domain.SystemUser;
+import com.rainbow.domain.SystemUserDO;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class RequestHolder {
 
-    private static final ThreadLocal<SystemUser> userHolder = new ThreadLocal<SystemUser>();
+    private static final ThreadLocal<SystemUserDO> userHolder = new ThreadLocal<SystemUserDO>();
 
     private static final ThreadLocal<HttpServletRequest> requestHolder = new ThreadLocal<HttpServletRequest>();
 
-    public static void add(SystemUser sysUser) {
+    public static void add(SystemUserDO sysUser) {
         userHolder.set(sysUser);
     }
 
@@ -18,7 +18,7 @@ public class RequestHolder {
         requestHolder.set(request);
     }
 
-    public static SystemUser getCurrentUser() {
+    public static SystemUserDO getCurrentUser() {
         return userHolder.get();
     }
 

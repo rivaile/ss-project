@@ -55,7 +55,8 @@ public enum ReturnCode {
     // ~~~~~~~~~~~~~~~~~~~~~SUPPORT_SERVER 错误编码段，基础服务： 1050001-1060000~~~~~~~~~~~~
     USERNAME_EXSIT_ERROR("1050001", "该用户名已存在！"),
     TELEPHONE_EXSIT_ERROR("1050002", "该手机号已存在！"),
-    MAIL_EXSIT_ERROR("1050003", "该邮箱已存在！");
+    MAIL_EXSIT_ERROR("1050003", "该邮箱已存在！"),
+    VERIFY_EXSIT_ERROR("1050004", "校验异常错误！");
 
 
     private final String value;

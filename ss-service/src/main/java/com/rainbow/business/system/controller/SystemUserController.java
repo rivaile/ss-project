@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.google.common.collect.Maps;
 import com.rainbow.business.system.service.ISystemUserService;
 import com.rainbow.business.system.service.impl.SysRoleUserService;
-import com.rainbow.domain.SystemUser;
+import com.rainbow.domain.SystemUserDO;
 import com.rainbow.vo.*;
 import com.rainbow.vo.req.PageSystemUserRequest;
 import com.rainbow.vo.req.SystemUserRequest;
@@ -54,7 +54,7 @@ public class SystemUserController {
     @GetMapping
     public PageResult<SystemUserResponse> pageList(PageSystemUserRequest request) {
 
-        IPage<SystemUser> pageResult = systemUserService.pageList(request);
+        IPage<SystemUserDO> pageResult = systemUserService.pageList(request);
 
         List<SystemUserResponse> pageList = pageResult.getRecords().stream().map(it -> {
             SystemUserResponse response = new SystemUserResponse();

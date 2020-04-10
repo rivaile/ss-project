@@ -3,7 +3,7 @@ package com.rainbow.business.system.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rainbow.domain.PageRequest;
-import com.rainbow.domain.SysAcl;
+import com.rainbow.domain.SystemAuthDO;
 import com.rainbow.business.system.service.impl.SysAclService;
 import com.rainbow.vo.AclParam;
 import com.rainbow.vo.RestResult;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sys/acl")
-public class SysAclController {
+public class SystemAuthController {
 
     @Autowired
     private SysAclService sysAclService;
@@ -37,7 +37,7 @@ public class SysAclController {
     }
 
     @GetMapping("/{aclModuleId}")
-    public RestResult<IPage<SysAcl>> getAclList(@PathVariable Integer aclModuleId, PageRequest pageQuery) {
+    public RestResult<IPage<SystemAuthDO>> getAclList(@PathVariable Integer aclModuleId, PageRequest pageQuery) {
         Page page = new Page();
         page.setCurrent(pageQuery.getCurrent());
         page.setSize(pageQuery.getPageSize());

@@ -1,6 +1,6 @@
 package com.rainbow.business.system.controller;
 
-import com.rainbow.domain.SystemUser;
+import com.rainbow.domain.SystemUserDO;
 import com.rainbow.business.system.service.impl.SystemUserService;
 import com.rainbow.util.MD5Util;
 import org.apache.commons.lang.StringUtils;
@@ -33,8 +33,8 @@ public class LoginController {
          *     WHERE telephone = #{keyword}
          *     OR mail = #{keyword}
          */
-//        SystemUser sysUser = sysUserService.findByKeyword(username);
-        SystemUser sysUser = null;
+//        SystemUserDO sysUser = sysUserService.findByKeyword(username);
+        SystemUserDO sysUser = null;
 
         String errorMsg = "";
         String ret = request.getParameter("ret");

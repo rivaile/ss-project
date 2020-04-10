@@ -6,9 +6,9 @@ import com.google.common.collect.Sets;
 import com.rainbow.business.system.dao.SystemRoleMapper;
 import com.rainbow.business.system.dao.SysRoleUserMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
-import com.rainbow.domain.SystemRole;
+import com.rainbow.domain.SystemRoleDO;
 import com.rainbow.domain.SysRoleUser;
-import com.rainbow.domain.SystemUser;
+import com.rainbow.domain.SystemUserDO;
 import com.rainbow.common.BaseService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +76,7 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
         }
     }
 
-    public List<SystemUser> getUserListByRoleId(int roleId) {
+    public List<SystemUserDO> getUserListByRoleId(int roleId) {
 
         List<Integer> userIdList = list(new QueryWrapper<SysRoleUser>().lambda()
                 .select(SysRoleUser::getUserId)
@@ -99,7 +99,7 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
                 .map(it -> it.getRoleId()).collect(Collectors.toList());
     }
 
-    public Collection<SystemRole> getRoleListByUserId(int userId) {
+    public Collection<SystemRoleDO> getRoleListByUserId(int userId) {
         List<Integer> roleIdList = getRoleIdListByUserId(userId);
         if (CollectionUtils.isEmpty(roleIdList)) {
             return Lists.newArrayList();

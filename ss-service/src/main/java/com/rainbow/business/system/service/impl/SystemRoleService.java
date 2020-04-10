@@ -13,7 +13,7 @@ import com.rainbow.domain.*;
 import com.rainbow.enums.ReturnCode;
 import com.rainbow.exception.BusinessException;
 
-import com.rainbow.vo.SysRoleReq;
+import com.rainbow.vo.SystemRoleRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole> implements ISystemRoleService {
+public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleDO> implements ISystemRoleService {
 
     @Autowired
     private SysRoleUserMapper sysRoleUserMapper;
@@ -39,12 +39,12 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
     private SysAclModuleMapper sysAclModuleMapper;
 
     @Autowired
-    private SysAclModuleService sysAclModuleService;
+    private SystemAuthModuleService sysAclModuleService;
 
 
-    public void save(SysRoleReq param) {
+    public void save(SystemRoleRequest param) {
         // 校验角色是否存在
-        SystemRole sysRole = new SystemRole();
+        SystemRoleDO sysRole = new SystemRoleDO();
         BeanUtils.copyProperties(param, sysRole);
         sysRole.setOperateIp("127.0.0.1");
         sysRole.setOperator("system");
@@ -53,9 +53,9 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
         if (!save(sysRole)) throw new BusinessException(ReturnCode.INTERNAL_SERVER_ERROR);
     }
 
-    public void update(SysRoleReq param) {
+    public void update(SystemRoleRequest param) {
 
-        SystemRole role = new SystemRole();
+        SystemRoleDO role = new SystemRoleDO();
         BeanUtils.copyProperties(param,
                 Preconditions.checkNotNull(getById(param.getId()), "待更新的角色不存在"));
         role.setOperateIp("127.0.0.1");
@@ -64,12 +64,12 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
         if (!updateById(role)) throw new BusinessException("更新失败");
     }
 
-    public List<SystemRole> listAll() {
+    public List<SystemRoleDO> listAll() {
 
         return list();
     }
 
-    public List<SystemRole> getRoleListByUserId(int userId) {
+    public List<SystemRoleDO> getRoleListByUserId(int userId) {
 
         List<Integer> roleIdList = sysRoleUserMapper.selectList(new QueryWrapper<SysRoleUser>()
                 .lambda()
@@ -84,12 +84,12 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
         return baseMapper.selectBatchIds(roleIdList);
     }
 
-    public List<SysAclModuleExt> roleTreeByRoleId(int roleId) {
+    public List<SystemAuthModuleBO> roleTreeByRoleId(int roleId) {
 
         // todo  1. 获取用户已分配的权限点   意义 ???
-        List<SysAcl> userAclList = getCurrentUserAclList();
+        List<SystemAuthDO> userAclList = getCurrentUserAclList();
         // 2. 当前角色分配的权限点
-        List<SysAcl> roleAclList = getRoleAclList(roleId);
+        List<SystemAuthDO> roleAclList = getRoleAclList(roleId);
 
         // 3. 当前系统的权限点.
         List<SysAclExt> aclExtList = Lists.newArrayList();
@@ -112,7 +112,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
             return Lists.newArrayList();
         }
         // 权限模块树...
-        List<SysAclModuleExt> aclModuleTree = sysAclModuleService.aclModuleTree();
+        List<SystemAuthModuleBO> aclModuleTree = sysAclModuleService.getAuthModuleTree();
 
         Map<Integer, List<SysAclExt>> moduleIdAclMap = aclExtList.stream()
                 .filter(it -> it.getStatus() == 1)
@@ -120,23 +120,27 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
 
         bindAclsOnModuleTree(aclModuleTree, moduleIdAclMap);
 
+
+
+
+
         return aclModuleTree;
     }
 
 
     @Transactional
-    private void bindAclsOnModuleTree(List<SysAclModuleExt> aclModuleTree,
+    private void bindAclsOnModuleTree(List<SystemAuthModuleBO> aclModuleTree,
                                       Map<Integer, List<SysAclExt>> moduleIdAclMap) {
         aclModuleTree.forEach(it -> {
             List<SysAclExt> aclList = moduleIdAclMap.get(it.getId());
             if (CollectionUtils.isNotEmpty(aclList)) {
-                Collections.sort(aclList, Comparator.comparingInt(SysAcl::getSeq));
-                it.setAclList(aclList);
+                Collections.sort(aclList, Comparator.comparingInt(SystemAuthDO::getSeq));
+                it.setAuthList(aclList);
             }
         });
     }
 
-    public List<SysAcl> getRoleAclList(int roleId) {
+    public List<SystemAuthDO> getRoleAclList(int roleId) {
         List<Integer> aclIdList = sysRoleAclMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
                 .select(SysRoleAcl::getAclId)
                 .eq(SysRoleAcl::getRoleId, roleId))
@@ -147,18 +151,19 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
         if (CollectionUtils.isEmpty(aclIdList)) {
             return Lists.newArrayList();
         }
-        return sysAclMapper.selectList(new QueryWrapper<SysAcl>().lambda()
-                .in(SysAcl::getId, aclIdList));
+        return sysAclMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
+                .in(SystemAuthDO::getId, aclIdList));
     }
 
 
-    private List<SysAcl> getCurrentUserAclList() {
+    private List<SystemAuthDO> getCurrentUserAclList() {
 
-        long userId = RequestHolder.getCurrentUser().getId();
+//        long userId = RequestHolder.getCurrentUser().getId();
+        long userId = 1;
 
-        if (isSuperAdmin()) {
-            return sysAclMapper.selectList(null);
-        }
+//        if (isSuperAdmin()) {
+//            return sysAclMapper.selectList(null);
+//        }
 
         List<Integer> userRoleIdList = sysRoleUserMapper.selectList(new QueryWrapper<SysRoleUser>()
                 .lambda()
@@ -183,14 +188,14 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
             return Lists.newArrayList();
         }
 
-        return sysAclMapper.selectList(new QueryWrapper<SysAcl>().lambda()
-                .in(SysAcl::getId, userAclIdList));
+        return sysAclMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
+                .in(SystemAuthDO::getId, userAclIdList));
     }
 
     public boolean isSuperAdmin() {
         // 这里是我自己定义了一个假的超级管理员规则，实际中要根据项目进行修改
         // 可以是配置文件获取，可以指定某个用户，也可以指定某个角色
-        SystemUser sysUser = RequestHolder.getCurrentUser();
+        SystemUserDO sysUser = RequestHolder.getCurrentUser();
         if (sysUser.getMail().contains("admin")) {
             return true;
         }
@@ -199,13 +204,13 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRole>
 
 
     @Override
-    public IPage<SystemRole> pageList(PageRequest request) {
+    public IPage<SystemRoleDO> pageList(PageRequest request) {
 
         Page page = new Page();
         page.setCurrent(request.getCurrent());
         page.setSize(request.getPageSize());
         page.setOrders(request.getOrders());
-        IPage<SystemRole> pageResult = page(page, new QueryWrapper<SystemRole>().lambda());
+        IPage<SystemRoleDO> pageResult = page(page, new QueryWrapper<SystemRoleDO>().lambda());
         return pageResult;
     }
 }

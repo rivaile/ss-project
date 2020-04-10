@@ -3,7 +3,7 @@ package com.rainbow.business.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainbow.domain.PageRequest;
-import com.rainbow.domain.SystemRole;
+import com.rainbow.domain.SystemRoleDO;
 
 /**
  * @author: denglin
@@ -11,7 +11,7 @@ import com.rainbow.domain.SystemRole;
  * @Description:
  * @date: 2019-09-24 15:33
  */
-public interface ISystemRoleService extends IService<SystemRole> {
+public interface ISystemRoleService extends IService<SystemRoleDO> {
 
     IPage pageList(PageRequest request);
 

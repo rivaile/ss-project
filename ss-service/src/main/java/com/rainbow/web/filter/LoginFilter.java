@@ -17,7 +17,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-//        SystemUser sysUser = (SystemUser)req.getSession().getAttribute("user");
+//        SystemUserDO sysUser = (SystemUserDO)req.getSession().getAttribute("user");
 //        if (sysUser == null) {
 //            String path = "/signin.jsp";
 //            resp.sendRedirect(path);

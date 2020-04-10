@@ -7,7 +7,7 @@ import com.google.common.base.Preconditions;
 import com.rainbow.business.system.dao.SysAclMapper;
 import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISysAclService;
-import com.rainbow.domain.SysAcl;
+import com.rainbow.domain.SystemAuthDO;
 import com.rainbow.enums.ReturnCode;
 import com.rainbow.exception.BusinessException;
 import com.rainbow.vo.AclParam;
@@ -24,17 +24,17 @@ import java.util.Date;
  * @date: 2019-09-24 15:33
  */
 @Service
-public class SysAclService extends BaseService<SysAclMapper, SysAcl> implements ISysAclService {
+public class SysAclService extends BaseService<SysAclMapper, SystemAuthDO> implements ISysAclService {
 
     public void saveAcl(AclParam param) {
         // 是否存在相同名称的权限点
-        if (count(new QueryWrapper<SysAcl>().lambda()
-                .eq(SysAcl::getName, param.getName())
-                .eq(SysAcl::getAclModuleId, param.getAclModuleId())) > 0) {
+        if (count(new QueryWrapper<SystemAuthDO>().lambda()
+                .eq(SystemAuthDO::getName, param.getName())
+                .eq(SystemAuthDO::getAclModuleId, param.getAclModuleId())) > 0) {
             throw new BusinessException("当前权限模块下面存在相同名称的权限点!");
         }
 
-        SysAcl acl = new SysAcl();
+        SystemAuthDO acl = new SystemAuthDO();
         BeanUtils.copyProperties(param, acl);
         acl.setCode(generateCode());
         acl.setOperateIp("127.0.0.1");
@@ -49,14 +49,14 @@ public class SysAclService extends BaseService<SysAclMapper, SysAcl> implements 
         BeanUtils.copyProperties(param,
                 Preconditions.checkNotNull(getById(param.getId()), "待更新的角色不存在"));
 
-        if (count(new QueryWrapper<SysAcl>().lambda()
-                .eq(SysAcl::getName, param.getName())
-                .eq(SysAcl::getAclModuleId, param.getAclModuleId())
-                .notIn(SysAcl::getId, param.getId())) > 0) {
+        if (count(new QueryWrapper<SystemAuthDO>().lambda()
+                .eq(SystemAuthDO::getName, param.getName())
+                .eq(SystemAuthDO::getAclModuleId, param.getAclModuleId())
+                .notIn(SystemAuthDO::getId, param.getId())) > 0) {
             throw new BusinessException("当前权限模块下面存在相同名称的权限点!");
         }
 
-        SysAcl acl = new SysAcl();
+        SystemAuthDO acl = new SystemAuthDO();
         BeanUtils.copyProperties(param, acl);
         acl.setOperateIp("127.0.0.1");
         acl.setOperator("system");
@@ -64,8 +64,8 @@ public class SysAclService extends BaseService<SysAclMapper, SysAcl> implements 
         if (!updateById(acl)) throw new BusinessException("更新失败");
     }
 
-    public IPage<SysAcl> getAclListByModuleId(Integer aclModuleId, Page page) {
-        return page(page, new QueryWrapper<SysAcl>().lambda().eq(SysAcl::getAclModuleId, aclModuleId));
+    public IPage<SystemAuthDO> getAclListByModuleId(Integer aclModuleId, Page page) {
+        return page(page, new QueryWrapper<SystemAuthDO>().lambda().eq(SystemAuthDO::getAclModuleId, aclModuleId));
     }
 
 

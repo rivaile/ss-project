@@ -2,7 +2,7 @@ package com.rainbow.business.system.controller;
 
 import com.rainbow.domain.SysDeptExt;
 import com.rainbow.business.system.service.impl.SysDeptService;
-import com.rainbow.vo.CommonTreeVo;
+import com.rainbow.vo.TreeData;
 import com.rainbow.vo.RestResult;
 import com.rainbow.vo.SysDeptReq;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +50,15 @@ public class SysDeptController {
 
 
     @GetMapping
-    public List<CommonTreeVo> getDeptListTree() {
+    public List<TreeData> getDeptListTree() {
         return tree(sysDeptService.getDeptListTree());
     }
 
-    private List<CommonTreeVo> tree(List<SysDeptExt> list) {
+    private List<TreeData> tree(List<SysDeptExt> list) {
         return list.stream().map(it -> {
-            CommonTreeVo treeObj = new CommonTreeVo();
+            TreeData treeObj = new TreeData();
             treeObj.setTitle(it.getName());
+            treeObj.setKey(String.valueOf(it.getId()));
             treeObj.setValue(String.valueOf(it.getId()));
             treeObj.setChildren(tree(it.getChildren()));
             return treeObj;

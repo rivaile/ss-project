@@ -38,7 +38,7 @@ public class AclControlFilter implements Filter {
             return;
         }
 
-//        SystemUser sysUser = RequestHolder.getCurrentUser();
+//        SystemUserDO sysUser = RequestHolder.getCurrentUser();
 //        if (sysUser == null) {
 //            log.info("someone visit {}, but no login, parameter:{}", servletPath, JsonMapper.obj2String(requestMap));
 //            noAuth(request, response);

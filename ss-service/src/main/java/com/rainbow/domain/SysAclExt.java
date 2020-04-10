@@ -6,7 +6,8 @@ package com.rainbow.domain;
  * @Description:
  * @date: 2019-09-30 18:52
  */
-public class SysAclExt extends SysAcl {
+public class SysAclExt extends SystemAuthDO {
+
     // 是否要默认选中
     private boolean checked = false;
     // 是否有权限操作

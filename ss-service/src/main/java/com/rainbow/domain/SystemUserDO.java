@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Data
 @ToString
-public class SystemUser {
+public class SystemUserDO {
 
     @TableId(type = IdType.AUTO)
     private Long id;

@@ -7,7 +7,7 @@ import com.rainbow.business.system.dao.SysDeptMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
 import com.rainbow.domain.SysDept;
 import com.rainbow.domain.SysDeptExt;
-import com.rainbow.domain.SystemUser;
+import com.rainbow.domain.SystemUserDO;
 import com.rainbow.exception.BusinessException;
 import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISysDeptService;
@@ -66,8 +66,8 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
                 .lambda().eq(SysDept::getParentId, deptId)) > 0)
             throw new BusinessException("当前部门下面有子部门，无法删除!");
 
-        if (userMapper.selectCount(new QueryWrapper<SystemUser>()
-                .lambda().eq(SystemUser::getDeptId, deptId)) > 0)
+        if (userMapper.selectCount(new QueryWrapper<SystemUserDO>()
+                .lambda().eq(SystemUserDO::getDeptId, deptId)) > 0)
             throw new BusinessException("当前部门下面有用户，无法删除!");
 
         removeById(deptId);

@@ -2,8 +2,8 @@ package com.rainbow.business.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.rainbow.domain.SysAclModuleExt;
-import com.rainbow.domain.SystemUser;
+import com.rainbow.domain.SystemAuthModuleBO;
+import com.rainbow.domain.SystemUserDO;
 import com.rainbow.vo.req.PageSystemUserRequest;
 import com.rainbow.vo.req.SystemUserRequest;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * @Description:
  * @date: 2019-09-24 15:33
  */
-public interface ISystemUserService extends IService<SystemUser> {
+public interface ISystemUserService extends IService<SystemUserDO> {
 
     boolean addUser(SystemUserRequest request);
 
@@ -25,5 +25,5 @@ public interface ISystemUserService extends IService<SystemUser> {
 
     IPage pageList(PageSystemUserRequest request);
 
-    List<SysAclModuleExt> userAclTree(int userId);
+    List<SystemAuthModuleBO> userAclTree(int userId);
 }

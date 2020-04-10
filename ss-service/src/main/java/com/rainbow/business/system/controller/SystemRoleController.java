@@ -1,19 +1,18 @@
 package com.rainbow.business.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.rainbow.domain.PageRequest;
-import com.rainbow.domain.SysAclModuleExt;
-import com.rainbow.domain.SystemRole;
-import com.rainbow.domain.SystemUser;
 import com.rainbow.business.system.service.impl.SysRoleAclService;
-import com.rainbow.business.system.service.impl.SystemRoleService;
 import com.rainbow.business.system.service.impl.SysRoleUserService;
+import com.rainbow.business.system.service.impl.SystemRoleService;
+import com.rainbow.domain.PageRequest;
+import com.rainbow.domain.SystemAuthModuleBO;
+import com.rainbow.domain.SystemRoleDO;
+import com.rainbow.domain.SystemUserDO;
 import com.rainbow.util.StringUtil;
 import com.rainbow.vo.PageResult;
 import com.rainbow.vo.RestResult;
-import com.rainbow.vo.SysRoleReq;
-import com.rainbow.vo.rsp.SystemRoleResponse;
-import com.rainbow.vo.rsp.SystemUserResponse;
+import com.rainbow.vo.SystemRoleRequest;
+import com.rainbow.vo.rsp.SystemRoleVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("/system/role")
+@RequestMapping("/system/roles")
 public class SystemRoleController {
 
     @Autowired
@@ -43,32 +42,32 @@ public class SystemRoleController {
     private SysRoleUserService sysRoleUserService;
 
     @PostMapping
-    public RestResult addRole(@RequestBody @Valid SysRoleReq req) {
-        systemRoleService.save(req);
+    public RestResult addRole(@RequestBody @Valid SystemRoleRequest requst) {
+        systemRoleService.save(requst);
         return RestResult.success(null);
     }
 
     @PutMapping
-    public RestResult updateRole(@RequestBody @Valid SysRoleReq req) {
+    public RestResult updateRole(@RequestBody @Valid SystemRoleRequest req) {
         systemRoleService.update(req);
         return RestResult.success(null);
     }
 
     @GetMapping
-    public PageResult<SystemRoleResponse> pageList(PageRequest request) {
-        IPage<SystemRole> page = systemRoleService.pageList(request);
+    public PageResult<SystemRoleVO> pageList(PageRequest request) {
 
-        List<SystemRoleResponse> pageList = page.getRecords().stream().map(it -> {
-            SystemRoleResponse response = new SystemRoleResponse();
+        IPage<SystemRoleDO> page = systemRoleService.pageList(request);
+
+        List<SystemRoleVO> pageList = page.getRecords().stream().map(it -> {
+            SystemRoleVO response = new SystemRoleVO();
             BeanUtils.copyProperties(it, response);
             return response;
         }).collect(Collectors.toList());
 
-        PageResult<SystemRoleResponse> pageResult = PageResult.success(pageList);
+        PageResult<SystemRoleVO> pageResult = PageResult.success(pageList);
         pageResult.setTotal(page.getTotal());
         pageResult.setPages(page.getPages());
         pageResult.setCurrent(page.getCurrent());
-
         return pageResult;
     }
 
@@ -78,8 +77,8 @@ public class SystemRoleController {
      * @param id
      * @return
      */
-    @GetMapping("/{id:d+}")
-    public RestResult<List<SysAclModuleExt>> roleTree(@PathVariable int id) {
+    @GetMapping("/{id}")
+    public RestResult<List<SystemAuthModuleBO>> authTree(@PathVariable int id) {
         return RestResult.success(systemRoleService.roleTreeByRoleId(id));
     }
 
@@ -118,7 +117,7 @@ public class SystemRoleController {
      * @return
      */
     @GetMapping("/users/{roleId}")
-    public RestResult<List<SystemUser>> users(@PathVariable int roleId) {
+    public RestResult<List<SystemUserDO>> users(@PathVariable int roleId) {
         return RestResult.success(sysRoleUserService.getUserListByRoleId(roleId));
     }
 }

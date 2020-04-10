@@ -11,10 +11,10 @@ import com.rainbow.common.RequestHolder;
 import com.rainbow.business.system.dao.SysAclMapper;
 import com.rainbow.business.system.dao.SysRoleUserMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
-import com.rainbow.domain.SysAcl;
+import com.rainbow.domain.SystemAuthDO;
 import com.rainbow.domain.SysAclExt;
-import com.rainbow.domain.SysAclModuleExt;
-import com.rainbow.domain.SystemUser;
+import com.rainbow.domain.SystemAuthModuleBO;
+import com.rainbow.domain.SystemUserDO;
 import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISystemUserService;
 import com.rainbow.enums.ReturnCode;
@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SystemUserService extends BaseService<SystemUserMapper, SystemUser> implements ISystemUserService {
+public class SystemUserService extends BaseService<SystemUserMapper, SystemUserDO> implements ISystemUserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -56,30 +56,30 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUser>
     private SysRoleAclService sysRoleAclService;
 
     @Autowired
-    private SysAclModuleService sysAclModuleService;
+    private SystemAuthModuleService sysAclModuleService;
 
     @Override
     public boolean addUser(@Valid SystemUserRequest request) {
 
-        int usernameExistCount = count(new QueryWrapper<SystemUser>().lambda()
-                .eq(SystemUser::getUsername, request.getUsername()));
+        int usernameExistCount = count(new QueryWrapper<SystemUserDO>().lambda()
+                .eq(SystemUserDO::getUsername, request.getUsername()));
         if (usernameExistCount > 0) {
             throw new BusinessException(ReturnCode.USERNAME_EXSIT_ERROR);
         }
 
-        int telephoneExistCount = count(new QueryWrapper<SystemUser>().lambda()
-                .eq(SystemUser::getTelephone, request.getTelephone()));
+        int telephoneExistCount = count(new QueryWrapper<SystemUserDO>().lambda()
+                .eq(SystemUserDO::getTelephone, request.getTelephone()));
         if (telephoneExistCount > 0) {
             throw new BusinessException(ReturnCode.TELEPHONE_EXSIT_ERROR);
         }
 
-        int mailExistCount = count(new QueryWrapper<SystemUser>().lambda()
-                .eq(SystemUser::getMail, request.getMail()));
+        int mailExistCount = count(new QueryWrapper<SystemUserDO>().lambda()
+                .eq(SystemUserDO::getMail, request.getMail()));
         if (mailExistCount > 0) {
             throw new BusinessException(ReturnCode.MAIL_EXSIT_ERROR);
         }
 
-        SystemUser user = new SystemUser();
+        SystemUserDO user = new SystemUserDO();
         BeanUtils.copyProperties(request, user);
 //        user.setPassword(passwordEncoder.encode("123456"));
         user.setPassword("123456");
@@ -93,7 +93,7 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUser>
 
     @Override
     public boolean deleteUser(Long id) {
-        SystemUser sysUser = new SystemUser();
+        SystemUserDO sysUser = new SystemUserDO();
         sysUser.setId(id);
         sysUser.setStatus(SystemUserStatus.DELETE.getValue());
         sysUser.setOperateTime(new Date());
@@ -102,26 +102,26 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUser>
 
     @Override
     public boolean updateUser(Long id, SystemUserRequest request) {
-        SystemUser user = getById(id);
+        SystemUserDO user = getById(id);
         BeanUtils.copyProperties(request, Preconditions.checkNotNull(user, "待更新的用户不存在"));
 
-        int usernameExistCount = count(new QueryWrapper<SystemUser>().lambda()
-                .eq(SystemUser::getUsername, request.getUsername())
-                .ne(SystemUser::getId, id));
+        int usernameExistCount = count(new QueryWrapper<SystemUserDO>().lambda()
+                .eq(SystemUserDO::getUsername, request.getUsername())
+                .ne(SystemUserDO::getId, id));
         if (usernameExistCount > 0) {
             throw new BusinessException(ReturnCode.USERNAME_EXSIT_ERROR);
         }
 
-        int telephoneExistCount = count(new QueryWrapper<SystemUser>().lambda()
-                .eq(SystemUser::getTelephone, request.getTelephone())
-                .ne(SystemUser::getId, id));
+        int telephoneExistCount = count(new QueryWrapper<SystemUserDO>().lambda()
+                .eq(SystemUserDO::getTelephone, request.getTelephone())
+                .ne(SystemUserDO::getId, id));
         if (telephoneExistCount > 0) {
             throw new BusinessException(ReturnCode.TELEPHONE_EXSIT_ERROR);
         }
 
-        int mailExistCount = count(new QueryWrapper<SystemUser>().lambda()
-                .eq(SystemUser::getMail, request.getMail())
-                .ne(SystemUser::getId, id));
+        int mailExistCount = count(new QueryWrapper<SystemUserDO>().lambda()
+                .eq(SystemUserDO::getMail, request.getMail())
+                .ne(SystemUserDO::getId, id));
         if (mailExistCount > 0) {
             throw new BusinessException(ReturnCode.MAIL_EXSIT_ERROR);
         }
@@ -134,24 +134,24 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUser>
     }
 
     @Override
-    public IPage<SystemUser> pageList(PageSystemUserRequest request) {
+    public IPage<SystemUserDO> pageList(PageSystemUserRequest request) {
 
         Page page = new Page();
         page.setCurrent(request.getCurrent());
         page.setSize(request.getPageSize());
         page.setOrders(request.getOrders());
 
-        IPage<SystemUser> pageResult = page(page, new QueryWrapper<SystemUser>().lambda()
-                .eq(StringUtils.isNotEmpty(request.getUsername()), SystemUser::getUsername, request.getUsername())
-                .eq(StringUtils.isNotEmpty(request.getTelephone()), SystemUser::getTelephone, request.getTelephone())
-                .eq(request.getDeptId() != null, SystemUser::getDeptId, request.getDeptId()));
+        IPage<SystemUserDO> pageResult = page(page, new QueryWrapper<SystemUserDO>().lambda()
+                .eq(StringUtils.isNotEmpty(request.getUsername()), SystemUserDO::getUsername, request.getUsername())
+                .eq(StringUtils.isNotEmpty(request.getTelephone()), SystemUserDO::getTelephone, request.getTelephone())
+                .eq(request.getDeptId() != null, SystemUserDO::getDeptId, request.getDeptId()));
 
         return pageResult;
     }
 
     @Override
-    public List<SysAclModuleExt> userAclTree(int userId) {
-        List<SysAcl> userAclList = getUserAclList(userId);
+    public List<SystemAuthModuleBO> userAclTree(int userId) {
+        List<SystemAuthDO> userAclList = getUserAclList(userId);
 
         List<SysAclExt> aclExts = userAclList.stream().map(it -> {
             SysAclExt acl = new SysAclExt();
@@ -164,9 +164,9 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUser>
         return aclListToTree(aclExts);
     }
 
-    private List<SysAclModuleExt> aclListToTree(List<SysAclExt> aclExts) {
+    private List<SystemAuthModuleBO> aclListToTree(List<SysAclExt> aclExts) {
         if (CollectionUtils.isEmpty(aclExts)) return Lists.newArrayList();
-        List<SysAclModuleExt> aclModuleExtList = sysAclModuleService.aclModuleTree();
+        List<SystemAuthModuleBO> aclModuleExtList = sysAclModuleService.getAuthModuleTree();
 
 
         Multimap<Integer, SysAclExt> moduleIdAclMap = ArrayListMultimap.create();
@@ -179,22 +179,22 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUser>
         return aclModuleExtList;
     }
 
-    private void bindAclsWithOrder(List<SysAclModuleExt> aclModuleExtList, Multimap<Integer, SysAclExt> moduleIdAclMap) {
+    private void bindAclsWithOrder(List<SystemAuthModuleBO> aclModuleExtList, Multimap<Integer, SysAclExt> moduleIdAclMap) {
         if (CollectionUtils.isEmpty(aclModuleExtList)) {
             return;
         }
-        for (SysAclModuleExt dto : aclModuleExtList) {
+        for (SystemAuthModuleBO dto : aclModuleExtList) {
             List<SysAclExt> aclDtoList = (List<SysAclExt>) moduleIdAclMap.get(dto.getId());
             if (CollectionUtils.isNotEmpty(aclDtoList)) {
-                Collections.sort(aclDtoList, Comparator.comparingInt(SysAcl::getSeq)
+                Collections.sort(aclDtoList, Comparator.comparingInt(SystemAuthDO::getSeq)
                 );
-                dto.setAclList(aclDtoList);
+                dto.setAuthList(aclDtoList);
             }
-            bindAclsWithOrder(dto.getAclModuleList(), moduleIdAclMap);
+            bindAclsWithOrder(dto.getModuleList(), moduleIdAclMap);
         }
     }
 
-    public List<SysAcl> getUserAclList(int userId) {
+    public List<SystemAuthDO> getUserAclList(int userId) {
         if (isSuperAdmin()) {
             return sysAclMapper.selectList(null);
         }
@@ -210,7 +210,7 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUser>
     public boolean isSuperAdmin() {
         // 这里是我自己定义了一个假的超级管理员规则，实际中要根据项目进行修改
         // 可以是配置文件获取，可以指定某个用户，也可以指定某个角色
-        SystemUser sysUser = RequestHolder.getCurrentUser();
+        SystemUserDO sysUser = RequestHolder.getCurrentUser();
         if (sysUser.getMail().contains("admin")) {
             return true;
         }

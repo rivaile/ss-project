@@ -1,6 +1,7 @@
 package com.rainbow.vo;
 
 import com.rainbow.enums.ReturnCode;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.util.Objects;
  * @version 1.0
  * @created 30-七月-2015 16:15:24
  */
+@ApiModel(value = "通用响应体")
 public class RestResult<T> implements Serializable {
     /**
      * 返回错误码，具体的编码规范参见"系统设计"
@@ -28,10 +30,10 @@ public class RestResult<T> implements Serializable {
     private String error;
     @ApiModelProperty(value = "返回内容", required = true)
     private T data;
-    @ApiModelProperty(value = "返回时间", required = true)
-    private final Date timestamp = new Date();
     @ApiModelProperty(value = "返回请求状态", required = true)
     private boolean success;
+    @ApiModelProperty(value = "返回时间", required = true)
+    private final Date timestamp = new Date();
 
     /**
      * 创建一个状态为成功的响应
@@ -257,6 +259,15 @@ public class RestResult<T> implements Serializable {
         this.data = data;
     }
 
+
+    public boolean isSuccess() {
+        return ReturnCode.SUCCESS.value().equals(status) || success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
     /**
      * To string string.
      *
@@ -275,11 +286,4 @@ public class RestResult<T> implements Serializable {
                 + '}';
     }
 
-    public boolean isSuccess() {
-        return ReturnCode.SUCCESS.value().equals(status) || success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
 }
