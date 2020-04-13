@@ -129,6 +129,7 @@ public class SystemAuthModuleService extends BaseService<SysAclModuleMapper, Sys
             TreeData treeObj = new TreeData();
             treeObj.setTitle(it.getName());
             treeObj.setKey(String.valueOf(it.getId()));
+            treeObj.setValue(String.valueOf(it.getId()));
             treeObj.setChildren(simpleTree(it.getModuleList()));
             return treeObj;
         }).collect(Collectors.toList());
