@@ -23,6 +23,6 @@ public class SystemAuthModuleBO extends SystemAuthModuleDO {
     /**
      * 挂载权限
      */
-    private List<SysAclExt> authList = Lists.newArrayList();
+    private List<SystemAuthExt> authList = Lists.newArrayList();
 
 }

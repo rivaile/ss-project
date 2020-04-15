@@ -92,47 +92,43 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
         List<SystemAuthDO> roleAclList = getRoleAclList(roleId);
 
         // 3. 当前系统的权限点.
-        List<SysAclExt> aclExtList = Lists.newArrayList();
+        List<SystemAuthExt> authExtList = Lists.newArrayList();
 
         sysAclMapper.selectList(null).forEach(it -> {
-            SysAclExt sysAclExt = new SysAclExt();
-            BeanUtils.copyProperties(it, sysAclExt);
+            SystemAuthExt auth = new SystemAuthExt();
+            BeanUtils.copyProperties(it, auth);
             if (userAclList.contains(it.getId())) {
-                sysAclExt.setHasAcl(true);
+                auth.setHasAuth(true);
             }
             if (roleAclList.contains(it.getId())) {
-                sysAclExt.setChecked(true);
+                auth.setChecked(true);
             }
-            aclExtList.add(sysAclExt);
+            authExtList.add(auth);
         });
 
         /*----------------------挂载权限到模块树上-------------------*/
 
-        if (CollectionUtils.isEmpty(aclExtList)) {
+        if (CollectionUtils.isEmpty(authExtList)) {
             return Lists.newArrayList();
         }
         // 权限模块树...
-        List<SystemAuthModuleBO> aclModuleTree = sysAclModuleService.getAuthModuleTree();
+        List<SystemAuthModuleBO> authModuleTree = sysAclModuleService.getAuthModuleTree();
 
-        Map<Integer, List<SysAclExt>> moduleIdAclMap = aclExtList.stream()
+        Map<Integer, List<SystemAuthExt>> moduleIdAclMap = authExtList.stream()
                 .filter(it -> it.getStatus() == 1)
-                .collect(Collectors.groupingBy(SysAclExt::getAuthModuleId));
+                .collect(Collectors.groupingBy(SystemAuthExt::getAuthModuleId));
 
-        bindAclsOnModuleTree(aclModuleTree, moduleIdAclMap);
+        bindAuthsOnModuleTree(authModuleTree, moduleIdAclMap);
 
-
-
-
-
-        return aclModuleTree;
+        return authModuleTree;
     }
 
 
     @Transactional
-    private void bindAclsOnModuleTree(List<SystemAuthModuleBO> aclModuleTree,
-                                      Map<Integer, List<SysAclExt>> moduleIdAclMap) {
+    private void bindAuthsOnModuleTree(List<SystemAuthModuleBO> aclModuleTree,
+                                       Map<Integer, List<SystemAuthExt>> moduleIdAclMap) {
         aclModuleTree.forEach(it -> {
-            List<SysAclExt> aclList = moduleIdAclMap.get(it.getId());
+            List<SystemAuthExt> aclList = moduleIdAclMap.get(it.getId());
             if (CollectionUtils.isNotEmpty(aclList)) {
                 Collections.sort(aclList, Comparator.comparingInt(SystemAuthDO::getSeq));
                 it.setAuthList(aclList);

@@ -12,7 +12,7 @@ import com.rainbow.business.system.dao.SysAclMapper;
 import com.rainbow.business.system.dao.SysRoleUserMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
 import com.rainbow.domain.SystemAuthDO;
-import com.rainbow.domain.SysAclExt;
+import com.rainbow.domain.SystemAuthExt;
 import com.rainbow.domain.SystemAuthModuleBO;
 import com.rainbow.domain.SystemUserDO;
 import com.rainbow.common.BaseService;
@@ -153,24 +153,24 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
     public List<SystemAuthModuleBO> userAclTree(int userId) {
         List<SystemAuthDO> userAclList = getUserAclList(userId);
 
-        List<SysAclExt> aclExts = userAclList.stream().map(it -> {
-            SysAclExt acl = new SysAclExt();
+        List<SystemAuthExt> aclExts = userAclList.stream().map(it -> {
+            SystemAuthExt acl = new SystemAuthExt();
             BeanUtils.copyProperties(it, acl);
             acl.setChecked(true);
-            acl.setHasAcl(true);
+            acl.setHasAuth(true);
             return acl;
         }).collect(Collectors.toList());
 
         return aclListToTree(aclExts);
     }
 
-    private List<SystemAuthModuleBO> aclListToTree(List<SysAclExt> aclExts) {
+    private List<SystemAuthModuleBO> aclListToTree(List<SystemAuthExt> aclExts) {
         if (CollectionUtils.isEmpty(aclExts)) return Lists.newArrayList();
         List<SystemAuthModuleBO> aclModuleExtList = sysAclModuleService.getAuthModuleTree();
 
 
-        Multimap<Integer, SysAclExt> moduleIdAclMap = ArrayListMultimap.create();
-        for (SysAclExt acl : aclExts) {
+        Multimap<Integer, SystemAuthExt> moduleIdAclMap = ArrayListMultimap.create();
+        for (SystemAuthExt acl : aclExts) {
             if (acl.getStatus() == 1) {
                 moduleIdAclMap.put(acl.getAuthModuleId(), acl);
             }
@@ -179,12 +179,12 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
         return aclModuleExtList;
     }
 
-    private void bindAclsWithOrder(List<SystemAuthModuleBO> aclModuleExtList, Multimap<Integer, SysAclExt> moduleIdAclMap) {
+    private void bindAclsWithOrder(List<SystemAuthModuleBO> aclModuleExtList, Multimap<Integer, SystemAuthExt> moduleIdAclMap) {
         if (CollectionUtils.isEmpty(aclModuleExtList)) {
             return;
         }
         for (SystemAuthModuleBO dto : aclModuleExtList) {
-            List<SysAclExt> aclDtoList = (List<SysAclExt>) moduleIdAclMap.get(dto.getId());
+            List<SystemAuthExt> aclDtoList = (List<SystemAuthExt>) moduleIdAclMap.get(dto.getId());
             if (CollectionUtils.isNotEmpty(aclDtoList)) {
                 Collections.sort(aclDtoList, Comparator.comparingInt(SystemAuthDO::getSeq)
                 );

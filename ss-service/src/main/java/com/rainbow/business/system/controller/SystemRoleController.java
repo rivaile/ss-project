@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("/system/roles")
+@RequestMapping("/system/role")
 public class SystemRoleController {
 
     @Autowired
@@ -78,7 +78,7 @@ public class SystemRoleController {
      * @return
      */
     @GetMapping("/{id}")
-    public RestResult<List<SystemAuthModuleBO>> authTree(@PathVariable int id) {
+    public RestResult<List<SystemAuthModuleBO>> authTree(@PathVariable Integer id) {
         return RestResult.success(systemRoleService.roleTreeByRoleId(id));
     }
 
@@ -88,14 +88,14 @@ public class SystemRoleController {
      * @return
      */
     @PostMapping("/acls/{roleId}")
-    public RestResult<Object> changeRoleAcls(@PathVariable int roleId,
+    public RestResult changeRoleAcls(@PathVariable int roleId,
                                              @RequestParam(value = "aclIds", required = false, defaultValue = "") String aclIds) {
 
         List<Integer> aclIdList = StringUtil.splitToListInt(aclIds);
 
         sysRoleAclService.changeRoleAcls(roleId, aclIdList);
 
-        return RestResult.success(null);
+        return RestResult.success();
     }
 
     /**
@@ -104,11 +104,11 @@ public class SystemRoleController {
      * @return
      */
     @PostMapping("/users/{roleId}")
-    public RestResult<Object> changeRoleUsers(@PathVariable int roleId,
+    public RestResult changeRoleUsers(@PathVariable int roleId,
                                               @RequestParam(value = "userIds", required = false, defaultValue = "") String userIds) {
         List<Integer> userIdList = StringUtil.splitToListInt(userIds);
         sysRoleUserService.changeRoleUsers(roleId, userIdList);
-        return RestResult.success(null);
+        return RestResult.success();
     }
 
     /**
