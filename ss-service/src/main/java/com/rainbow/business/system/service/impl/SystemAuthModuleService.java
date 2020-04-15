@@ -16,7 +16,7 @@ import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISystemAuthModuleService;
 import com.rainbow.util.LevelUtil;
 import com.rainbow.vo.AuthModuleRequest;
-import com.rainbow.vo.TreeData;
+import com.rainbow.vo.AuthModuleTreeData;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +49,7 @@ public class SystemAuthModuleService extends BaseService<SysAclModuleMapper, Sys
         statusVerify(param);
         SystemAuthModuleDO authModule = new SystemAuthModuleDO();
         BeanUtils.copyProperties(param, authModule);
+        authModule.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
         authModule.setOperateIp("127.0.0.1");
         save(authModule);
     }
@@ -65,7 +66,7 @@ public class SystemAuthModuleService extends BaseService<SysAclModuleMapper, Sys
         }
 
         if (sysAclMapper.selectCount(new QueryWrapper<SystemAuthDO>().lambda()
-                .eq(SystemAuthDO::getAclModuleId, id)) > 0) {
+                .eq(SystemAuthDO::getAuthModuleId, id)) > 0) {
             throw new BusinessException("当前模块下面挂载有权限，无法删除!");
         }
 
@@ -120,17 +121,33 @@ public class SystemAuthModuleService extends BaseService<SysAclModuleMapper, Sys
     }
 
     @Override
-    public List<TreeData> getSimpleAuthModuleTree() {
+    public List<AuthModuleTreeData> getSimpleAuthModuleTree() {
         return simpleTree(getAuthModuleTree());
     }
 
-    private List<TreeData> simpleTree(List<SystemAuthModuleBO> list) {
+    private String getLevel(Integer moduleId) {
+        SystemAuthModuleDO module = getById(moduleId);
+        if (module == null) {
+            return null;
+        }
+        return module.getLevel();
+    }
+
+    private List<AuthModuleTreeData> simpleTree(List<SystemAuthModuleBO> list) {
         return list.stream().map(it -> {
-            TreeData treeObj = new TreeData();
+            AuthModuleTreeData treeObj = new AuthModuleTreeData();
+            treeObj.setId(it.getId());
+            treeObj.setParentId(it.getParentId());
+            treeObj.setName(it.getName());
+            treeObj.setSeq(it.getSeq());
+            treeObj.setStatus(it.getStatus());
+            treeObj.setRemark(it.getRemark());
+
             treeObj.setTitle(it.getName());
             treeObj.setKey(String.valueOf(it.getId()));
             treeObj.setValue(String.valueOf(it.getId()));
             treeObj.setChildren(simpleTree(it.getModuleList()));
+
             return treeObj;
         }).collect(Collectors.toList());
     }

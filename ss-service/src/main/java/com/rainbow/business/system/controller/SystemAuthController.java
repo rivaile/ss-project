@@ -1,11 +1,11 @@
 package com.rainbow.business.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.rainbow.domain.PageRequest;
 import com.rainbow.domain.SystemAuthDO;
-import com.rainbow.business.system.service.impl.SysAclService;
-import com.rainbow.vo.AclParam;
+import com.rainbow.business.system.service.impl.SystemAuthService;
+import com.rainbow.vo.AuthRequest;
+import com.rainbow.vo.PageResult;
 import com.rainbow.vo.RestResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,31 +18,35 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
-@RequestMapping("/sys/acl")
+@RequestMapping("/system/auth")
 public class SystemAuthController {
 
     @Autowired
-    private SysAclService sysAclService;
+    private SystemAuthService authService;
 
     @PostMapping
-    public RestResult addAcl(@RequestBody AclParam param) {
-        sysAclService.saveAcl(param);
+    public RestResult addAuth(@RequestBody AuthRequest request) {
+        authService.saveAuth(request);
+        return RestResult.success();
+    }
+
+    @PutMapping("/{id}")
+    public RestResult updateAuth(@PathVariable Integer id, @RequestBody AuthRequest request) {
+        authService.updateAuth(id, request);
         return RestResult.success(null);
     }
 
-    @PutMapping
-    public RestResult updateAcl(@RequestBody AclParam param) {
-        sysAclService.updateAcl(param);
-        return RestResult.success(null);
-    }
+    @GetMapping("/{authModuleId}")
+    public PageResult<SystemAuthDO> pageAuthList(@PathVariable Integer authModuleId, PageRequest pageQuery) {
 
-    @GetMapping("/{aclModuleId}")
-    public RestResult<IPage<SystemAuthDO>> getAclList(@PathVariable Integer aclModuleId, PageRequest pageQuery) {
-        Page page = new Page();
-        page.setCurrent(pageQuery.getCurrent());
-        page.setSize(pageQuery.getPageSize());
-        page.setOrders(pageQuery.getOrders());
-        return RestResult.success(sysAclService.getAclListByModuleId(aclModuleId, page));
+        IPage<SystemAuthDO> page = authService.pageAuthListByModuleId(authModuleId, pageQuery);
+
+        PageResult<SystemAuthDO> pageResult = PageResult.success(page.getRecords());
+        pageResult.setTotal(page.getTotal());
+        pageResult.setCurrent(page.getCurrent());
+        pageResult.setPages(page.getPages());
+
+        return pageResult;
     }
 
     /**

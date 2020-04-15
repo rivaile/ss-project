@@ -1,9 +1,7 @@
 package com.rainbow.business.system.controller;
 
 import com.rainbow.business.system.service.impl.SystemAuthModuleService;
-import com.rainbow.vo.AuthModuleRequest;
-import com.rainbow.vo.TreeData;
-import com.rainbow.vo.RestResult;
+import com.rainbow.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,13 +36,13 @@ public class SystemAuthModuleController {
     @PutMapping("/{id}")
     public RestResult updateAuthModule(@PathVariable int id,
                                        @Valid @RequestBody AuthModuleRequest request) {
-        authModuleService.updateAuthModule(id,request);
+        authModuleService.updateAuthModule(id, request);
         return RestResult.success();
     }
 
     @GetMapping
-    public RestResult<List<TreeData>> getAuthModuleTree() {
-        List<TreeData> tree = authModuleService.getSimpleAuthModuleTree();
+    public RestResult<List<AuthModuleTreeData>> getAuthModuleTree() {
+        List<AuthModuleTreeData> tree = authModuleService.getSimpleAuthModuleTree();
         return RestResult.success(tree);
     }
 }

@@ -172,7 +172,7 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
         Multimap<Integer, SysAclExt> moduleIdAclMap = ArrayListMultimap.create();
         for (SysAclExt acl : aclExts) {
             if (acl.getStatus() == 1) {
-                moduleIdAclMap.put(acl.getAclModuleId(), acl);
+                moduleIdAclMap.put(acl.getAuthModuleId(), acl);
             }
         }
         bindAclsWithOrder(aclModuleExtList, moduleIdAclMap);

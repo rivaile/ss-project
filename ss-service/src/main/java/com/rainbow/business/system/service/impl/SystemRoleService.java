@@ -116,7 +116,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
 
         Map<Integer, List<SysAclExt>> moduleIdAclMap = aclExtList.stream()
                 .filter(it -> it.getStatus() == 1)
-                .collect(Collectors.groupingBy(SysAclExt::getAclModuleId));
+                .collect(Collectors.groupingBy(SysAclExt::getAuthModuleId));
 
         bindAclsOnModuleTree(aclModuleTree, moduleIdAclMap);
 

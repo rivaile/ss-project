@@ -25,13 +25,13 @@ public class ControllerExceptionHandler {
         return RestResult.error(exception.getCode(), exception.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public RestResult handleException(Exception ex) {
-        return RestResult.error(ReturnCode.BAD_REQUEST, ex.getMessage());
-    }
-
+//    @ExceptionHandler(Exception.class)
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public RestResult handleException(Exception ex) {
+//        return RestResult.error(ReturnCode.BAD_REQUEST, ex.getMessage());
+//    }
+//
 
 //    @ExceptionHandler(UserNotExistException.class)
 //    @ResponseBody

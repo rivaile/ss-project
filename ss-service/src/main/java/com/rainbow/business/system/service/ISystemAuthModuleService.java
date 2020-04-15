@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainbow.domain.SystemAuthModuleBO;
 import com.rainbow.domain.SystemAuthModuleDO;
 import com.rainbow.vo.AuthModuleRequest;
+import com.rainbow.vo.AuthModuleTreeData;
 import com.rainbow.vo.TreeData;
 
 import java.util.List;
@@ -24,5 +25,5 @@ public interface ISystemAuthModuleService extends IService<SystemAuthModuleDO> {
 
     List<SystemAuthModuleBO> getAuthModuleTree();
 
-    List<TreeData> getSimpleAuthModuleTree();
+    List<AuthModuleTreeData> getSimpleAuthModuleTree();
 }
