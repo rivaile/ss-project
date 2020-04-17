@@ -9,5 +9,5 @@ import com.rainbow.domain.SystemAuthDO;
  * @Description:
  * @date: 2019-09-23 11:38
  */
-public interface SysAclMapper extends BaseMapper<SystemAuthDO> {
+public interface SystemAuthMapper extends BaseMapper<SystemAuthDO> {
 }

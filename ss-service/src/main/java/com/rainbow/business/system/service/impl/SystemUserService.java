@@ -8,7 +8,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.rainbow.common.RequestHolder;
-import com.rainbow.business.system.dao.SysAclMapper;
+import com.rainbow.business.system.dao.SystemAuthMapper;
 import com.rainbow.business.system.dao.SysRoleUserMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
 import com.rainbow.domain.SystemAuthDO;
@@ -44,7 +44,7 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private SysAclMapper sysAclMapper;
+    private SystemAuthMapper sysAclMapper;
 
     @Autowired
     private SysRoleUserMapper roleUserMapper;

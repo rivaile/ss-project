@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.base.Preconditions;
-import com.rainbow.business.system.dao.SysAclMapper;
+import com.rainbow.business.system.dao.SystemAuthMapper;
 import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISystemAuthService;
 import com.rainbow.domain.PageRequest;
@@ -24,7 +24,7 @@ import java.util.Date;
  * @date: 2019-09-24 15:33
  */
 @Service
-public class SystemAuthService extends BaseService<SysAclMapper, SystemAuthDO> implements ISystemAuthService {
+public class SystemAuthService extends BaseService<SystemAuthMapper, SystemAuthDO> implements ISystemAuthService {
 
     @Override
     public void saveAuth(AuthRequest param) {

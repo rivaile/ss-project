@@ -2,7 +2,7 @@ package com.rainbow.business.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Sets;
-import com.rainbow.business.system.dao.SysRoleAclMapper;
+import com.rainbow.business.system.dao.SystemRoleAuthMapper;
 import com.rainbow.domain.SysRoleAcl;
 import com.rainbow.common.BaseService;
 import org.apache.commons.collections.CollectionUtils;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @date: 2019-10-12 17:27
  */
 @Service
-public class SysRoleAclService extends BaseService<SysRoleAclMapper, SysRoleAcl> {
+public class SysRoleAclService extends BaseService<SystemRoleAuthMapper, SysRoleAcl> {
 
 
     public void changeRoleAcls(int roleId, List<Integer> aclIdList) {

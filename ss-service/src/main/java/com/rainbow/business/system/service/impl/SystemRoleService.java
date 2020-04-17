@@ -30,16 +30,16 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
     private SysRoleUserMapper sysRoleUserMapper;
 
     @Autowired
-    private SysRoleAclMapper sysRoleAclMapper;
+    private SystemRoleAuthMapper sysRoleAclMapper;
 
     @Autowired
-    private SysAclMapper sysAclMapper;
+    private SystemAuthMapper systemAuthMapper;
 
     @Autowired
-    private SysAclModuleMapper sysAclModuleMapper;
+    private SystemAuthModuleMapper systemAuthModuleMapper;
 
     @Autowired
-    private SystemAuthModuleService sysAclModuleService;
+    private SystemAuthModuleService systemAuthoduleService;
 
 
     public void save(SystemRoleRequest param) {
@@ -86,21 +86,21 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
 
     public List<SystemAuthModuleBO> roleTreeByRoleId(int roleId) {
 
-        // todo  1. 获取用户已分配的权限点   意义 ???
-        List<SystemAuthDO> userAclList = getCurrentUserAclList();
+        // 1. 获取用户已分配的权限点
+        List<SystemAuthDO> userAuthList = getCurrentUserAclList();
         // 2. 当前角色分配的权限点
-        List<SystemAuthDO> roleAclList = getRoleAclList(roleId);
+        List<SystemAuthDO> roleAuthList = getRoleAuthList(roleId);
 
         // 3. 当前系统的权限点.
         List<SystemAuthExt> authExtList = Lists.newArrayList();
 
-        sysAclMapper.selectList(null).forEach(it -> {
+        systemAuthMapper.selectList(new QueryWrapper<>()).forEach(it -> {
             SystemAuthExt auth = new SystemAuthExt();
             BeanUtils.copyProperties(it, auth);
-            if (userAclList.contains(it.getId())) {
+            if (userAuthList.contains(it.getId())) {
                 auth.setHasAuth(true);
             }
-            if (roleAclList.contains(it.getId())) {
+            if (roleAuthList.contains(it.getId())) {
                 auth.setChecked(true);
             }
             authExtList.add(auth);
@@ -112,31 +112,34 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
             return Lists.newArrayList();
         }
         // 权限模块树...
-        List<SystemAuthModuleBO> authModuleTree = sysAclModuleService.getAuthModuleTree();
+        List<SystemAuthModuleBO> authModuleTree = systemAuthoduleService.getAuthModuleTree();
 
-        Map<Integer, List<SystemAuthExt>> moduleIdAclMap = authExtList.stream()
+        Map<Integer, List<SystemAuthExt>> moduleIdMap = authExtList.stream()
                 .filter(it -> it.getStatus() == 1)
                 .collect(Collectors.groupingBy(SystemAuthExt::getAuthModuleId));
 
-        bindAuthsOnModuleTree(authModuleTree, moduleIdAclMap);
+        bindAuthsOnModuleTree(authModuleTree, moduleIdMap);
 
         return authModuleTree;
     }
 
+    void bindAuthsOnModuleTree(List<SystemAuthModuleBO> authModuleTree,
+                               Map<Integer, List<SystemAuthExt>> moduleIdMap) {
+        if (CollectionUtils.isEmpty(authModuleTree)) {
+            return;
+        }
 
-    @Transactional
-    private void bindAuthsOnModuleTree(List<SystemAuthModuleBO> aclModuleTree,
-                                       Map<Integer, List<SystemAuthExt>> moduleIdAclMap) {
-        aclModuleTree.forEach(it -> {
-            List<SystemAuthExt> aclList = moduleIdAclMap.get(it.getId());
-            if (CollectionUtils.isNotEmpty(aclList)) {
-                Collections.sort(aclList, Comparator.comparingInt(SystemAuthDO::getSeq));
-                it.setAuthList(aclList);
+        authModuleTree.forEach(it -> {
+            List<SystemAuthExt> authList = moduleIdMap.get(it.getId());
+            if (CollectionUtils.isNotEmpty(authList)) {
+                Collections.sort(authList, Comparator.comparingInt(SystemAuthDO::getSeq));
+                it.setAuthList(authList);
             }
+            bindAuthsOnModuleTree(it.getModuleList(), moduleIdMap);
         });
     }
 
-    public List<SystemAuthDO> getRoleAclList(int roleId) {
+    public List<SystemAuthDO> getRoleAuthList(int roleId) {
         List<Integer> aclIdList = sysRoleAclMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
                 .select(SysRoleAcl::getAclId)
                 .eq(SysRoleAcl::getRoleId, roleId))
@@ -147,7 +150,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
         if (CollectionUtils.isEmpty(aclIdList)) {
             return Lists.newArrayList();
         }
-        return sysAclMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
+        return systemAuthMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
                 .in(SystemAuthDO::getId, aclIdList));
     }
 
@@ -158,7 +161,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
         long userId = 1;
 
 //        if (isSuperAdmin()) {
-//            return sysAclMapper.selectList(null);
+//            return systemAuthMapper.selectList(null);
 //        }
 
         List<Integer> userRoleIdList = sysRoleUserMapper.selectList(new QueryWrapper<SysRoleUser>()
@@ -184,7 +187,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
             return Lists.newArrayList();
         }
 
-        return sysAclMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
+        return systemAuthMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
                 .in(SystemAuthDO::getId, userAclIdList));
     }
 

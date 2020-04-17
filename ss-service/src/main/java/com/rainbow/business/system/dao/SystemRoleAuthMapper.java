@@ -9,5 +9,5 @@ import com.rainbow.domain.SysRoleAcl;
  * @Description:
  * @date: 2019-09-30 19:01
  */
-public interface SysRoleAclMapper extends BaseMapper<SysRoleAcl> {
+public interface SystemRoleAuthMapper extends BaseMapper<SysRoleAcl> {
 }

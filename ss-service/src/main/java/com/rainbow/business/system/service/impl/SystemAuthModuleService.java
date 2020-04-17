@@ -5,8 +5,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
-import com.rainbow.business.system.dao.SysAclMapper;
-import com.rainbow.business.system.dao.SysAclModuleMapper;
+import com.rainbow.business.system.dao.SystemAuthMapper;
+import com.rainbow.business.system.dao.SystemAuthModuleMapper;
 import com.rainbow.domain.SystemAuthDO;
 import com.rainbow.domain.SystemAuthModuleDO;
 import com.rainbow.domain.SystemAuthModuleBO;
@@ -38,10 +38,10 @@ import static com.rainbow.common.Constant.SEPARATOR;
  * @date: 2019-10-10 20:40
  */
 @Service
-public class SystemAuthModuleService extends BaseService<SysAclModuleMapper, SystemAuthModuleDO> implements ISystemAuthModuleService {
+public class SystemAuthModuleService extends BaseService<SystemAuthModuleMapper, SystemAuthModuleDO> implements ISystemAuthModuleService {
 
     @Autowired
-    private SysAclMapper sysAclMapper;
+    private SystemAuthMapper sysAclMapper;
 
     @Override
     public void addAuthMoudule(AuthModuleRequest param) {
