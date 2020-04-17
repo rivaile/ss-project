@@ -44,13 +44,13 @@ public class SystemRoleController {
     @PostMapping
     public RestResult addRole(@RequestBody @Valid SystemRoleRequest requst) {
         systemRoleService.save(requst);
-        return RestResult.success(null);
+        return RestResult.success();
     }
 
     @PutMapping
     public RestResult updateRole(@RequestBody @Valid SystemRoleRequest req) {
         systemRoleService.update(req);
-        return RestResult.success(null);
+        return RestResult.success();
     }
 
     @GetMapping

@@ -18,7 +18,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,7 +29,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
     private SysRoleUserMapper sysRoleUserMapper;
 
     @Autowired
-    private SystemRoleAuthMapper sysRoleAclMapper;
+    private SystemRoleAuthMapper systemRoleAuthMapper;
 
     @Autowired
     private SystemAuthMapper systemAuthMapper;
@@ -89,7 +88,15 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
         // 1. 获取用户已分配的权限点
         List<SystemAuthDO> userAuthList = getCurrentUserAclList();
         // 2. 当前角色分配的权限点
-        List<SystemAuthDO> roleAuthList = getRoleAuthList(roleId);
+//        List<SystemAuthDO> roleAuthList = getRoleAuthList(roleId);
+        List<Integer> authIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
+                .select(SysRoleAcl::getAclId)
+                .eq(SysRoleAcl::getRoleId, roleId))
+                .stream()
+                .map(it -> it.getAclId())
+                .distinct()
+                .collect(Collectors.toList());
+        ;
 
         // 3. 当前系统的权限点.
         List<SystemAuthExt> authExtList = Lists.newArrayList();
@@ -100,7 +107,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
             if (userAuthList.contains(it.getId())) {
                 auth.setHasAuth(true);
             }
-            if (roleAuthList.contains(it.getId())) {
+            if (authIdList.contains(it.getId())) {
                 auth.setChecked(true);
             }
             authExtList.add(auth);
@@ -140,18 +147,18 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
     }
 
     public List<SystemAuthDO> getRoleAuthList(int roleId) {
-        List<Integer> aclIdList = sysRoleAclMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
+        List<Integer> authIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
                 .select(SysRoleAcl::getAclId)
                 .eq(SysRoleAcl::getRoleId, roleId))
                 .stream()
                 .map(it -> it.getAclId())
                 .distinct()
                 .collect(Collectors.toList());
-        if (CollectionUtils.isEmpty(aclIdList)) {
+        if (CollectionUtils.isEmpty(authIdList)) {
             return Lists.newArrayList();
         }
         return systemAuthMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
-                .in(SystemAuthDO::getId, aclIdList));
+                .in(SystemAuthDO::getId, authIdList));
     }
 
 
@@ -174,7 +181,7 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
             return Lists.newArrayList();
         }
 
-        List<Integer> userAclIdList = sysRoleAclMapper.selectList(new QueryWrapper<SysRoleAcl>()
+        List<Integer> userAclIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SysRoleAcl>()
                 .lambda()
                 .select(SysRoleAcl::getAclId)
                 .in(SysRoleAcl::getRoleId, userRoleIdList))
