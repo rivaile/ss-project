@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainbow.domain.PageRequest;
 import com.rainbow.domain.SystemRoleDO;
+import com.rainbow.vo.SystemRoleRequest;
 
 /**
  * @author: denglin
@@ -12,6 +13,10 @@ import com.rainbow.domain.SystemRoleDO;
  * @date: 2019-09-24 15:33
  */
 public interface ISystemRoleService extends IService<SystemRoleDO> {
+
+    void addRole(SystemRoleRequest param);
+
+    void updateRole(Integer id, SystemRoleRequest param);
 
     IPage pageList(PageRequest request);
 

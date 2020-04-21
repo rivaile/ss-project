@@ -56,7 +56,10 @@ public enum ReturnCode {
     USERNAME_EXSIT_ERROR("1050001", "该用户名已存在！"),
     TELEPHONE_EXSIT_ERROR("1050002", "该手机号已存在！"),
     MAIL_EXSIT_ERROR("1050003", "该邮箱已存在！"),
-    VERIFY_EXSIT_ERROR("1050004", "校验异常错误！");
+    VERIFY_EXSIT_ERROR("1050004", "校验异常错误！"),
+
+    ROLE_NAME_EXSIT_ERROR("1050004", "该角色名称已存在！");
+
 
 
     private final String value;

@@ -8,32 +8,28 @@ import lombok.ToString;
 
 import java.util.Date;
 
-
+/**
+ * @author: denglin
+ * @version: v1.0
+ * @Description:
+ * @date: 2019-09-30 19:02
+ */
 @Data
 @ToString
-@TableName("system_user")
-public class SystemUserDO {
+@TableName("system_role_auth")
+public class SystemRoleAuthDO {
 
     @TableId(type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    private String username;
+    private Integer roleId;
 
-    private String telephone;
-
-    private String mail;
-
-    private String password;
-
-    private Integer deptId;
-
-    private Integer status;
-
-    private String remark;
+    private Integer authId;
 
     private String operator;
 
     private Date operateTime;
 
     private String operateIp;
+
 }

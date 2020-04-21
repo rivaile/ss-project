@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.rainbow.business.system.dao.SystemRoleMapper;
-import com.rainbow.business.system.dao.SysRoleUserMapper;
+import com.rainbow.business.system.dao.SystemRoleUserMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
 import com.rainbow.domain.SystemRoleDO;
-import com.rainbow.domain.SysRoleUser;
+import com.rainbow.domain.SystemRoleUserDO;
 import com.rainbow.domain.SystemUserDO;
 import com.rainbow.common.BaseService;
 import org.apache.commons.collections.CollectionUtils;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @date: 2019-10-12 17:32
  */
 @Service
-public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUser> {
+public class SysRoleUserService extends BaseService<SystemRoleUserMapper, SystemRoleUserDO> {
 
     @Autowired
     private SystemUserMapper userMapper;
@@ -37,9 +37,9 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
 
     public void changeRoleUsers(int roleId, List<Integer> userIdList) {
 
-        List<Integer> originUserIdList = list(new QueryWrapper<SysRoleUser>().lambda()
-                .select(SysRoleUser::getUserId)
-                .eq(SysRoleUser::getRoleId, roleId))
+        List<Integer> originUserIdList = list(new QueryWrapper<SystemRoleUserDO>().lambda()
+                .select(SystemRoleUserDO::getUserId)
+                .eq(SystemRoleUserDO::getRoleId, roleId))
                 .stream()
                 .map(it -> it.getUserId())
                 .collect(Collectors.toList());
@@ -56,13 +56,13 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
 
     private void updateRoleUsers(int roleId, List<Integer> userIdList) {
 
-        remove(new QueryWrapper<SysRoleUser>().lambda().eq(SysRoleUser::getRoleId, roleId));
+        remove(new QueryWrapper<SystemRoleUserDO>().lambda().eq(SystemRoleUserDO::getRoleId, roleId));
 
         if (CollectionUtils.isNotEmpty(userIdList)) {
 
-            List<SysRoleUser> roleAclList = userIdList.stream().map(it -> {
+            List<SystemRoleUserDO> roleAclList = userIdList.stream().map(it -> {
 
-                SysRoleUser roleUSer = new SysRoleUser();
+                SystemRoleUserDO roleUSer = new SystemRoleUserDO();
                 roleUSer.setRoleId(roleId);
                 roleUSer.setUserId(it);
                 roleUSer.setOperateIp("127.0.0.1");
@@ -78,9 +78,9 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
 
     public List<SystemUserDO> getUserListByRoleId(int roleId) {
 
-        List<Integer> userIdList = list(new QueryWrapper<SysRoleUser>().lambda()
-                .select(SysRoleUser::getUserId)
-                .eq(SysRoleUser::getRoleId, roleId))
+        List<Integer> userIdList = list(new QueryWrapper<SystemRoleUserDO>().lambda()
+                .select(SystemRoleUserDO::getUserId)
+                .eq(SystemRoleUserDO::getRoleId, roleId))
                 .stream()
                 .map(it -> it.getUserId())
                 .collect(Collectors.toList());
@@ -93,8 +93,8 @@ public class SysRoleUserService extends BaseService<SysRoleUserMapper, SysRoleUs
     }
 
     public List<Integer> getRoleIdListByUserId(int userId) {
-        return list(new QueryWrapper<SysRoleUser>().lambda()
-                .select(SysRoleUser::getRoleId).eq(SysRoleUser::getUserId, userId))
+        return list(new QueryWrapper<SystemRoleUserDO>().lambda()
+                .select(SystemRoleUserDO::getRoleId).eq(SystemRoleUserDO::getUserId, userId))
                 .stream()
                 .map(it -> it.getRoleId()).collect(Collectors.toList());
     }

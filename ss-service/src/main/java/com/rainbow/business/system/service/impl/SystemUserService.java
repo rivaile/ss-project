@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.rainbow.common.RequestHolder;
 import com.rainbow.business.system.dao.SystemAuthMapper;
-import com.rainbow.business.system.dao.SysRoleUserMapper;
+import com.rainbow.business.system.dao.SystemRoleUserMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
 import com.rainbow.domain.SystemAuthDO;
 import com.rainbow.domain.SystemAuthExt;
@@ -47,13 +47,13 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
     private SystemAuthMapper sysAclMapper;
 
     @Autowired
-    private SysRoleUserMapper roleUserMapper;
+    private SystemRoleUserMapper roleUserMapper;
 
     @Autowired
     private SysRoleUserService roleUserService;
 
     @Autowired
-    private SysRoleAclService sysRoleAclService;
+    private SystemRoleAuthService sysRoleAclService;
 
     @Autowired
     private SystemAuthModuleService sysAclModuleService;
@@ -202,7 +202,7 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
         List<Integer> roleIds = roleUserService.getRoleIdListByUserId(userId);
         if (CollectionUtils.isEmpty(roleIds)) return Lists.newArrayList();
 
-        List<Integer> userAclIdList = sysRoleAclService.getAclIdListByRoleIdList(roleIds);
+        List<Integer> userAclIdList = sysRoleAclService.getAuthIdListByRoleIdList(roleIds);
         if (CollectionUtils.isEmpty(userAclIdList)) return Lists.newArrayList();
         return sysAclMapper.selectBatchIds(userAclIdList);
     }

@@ -1,7 +1,7 @@
 package com.rainbow.business.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rainbow.domain.SysRoleUser;
+import com.rainbow.domain.SystemRoleUserDO;
 
 /**
  * @author: denglin
@@ -9,5 +9,5 @@ import com.rainbow.domain.SysRoleUser;
  * @Description:
  * @date: 2019-09-24 15:38
  */
-public interface SysRoleUserMapper extends BaseMapper<SysRoleUser> {
+public interface SystemRoleUserMapper extends BaseMapper<SystemRoleUserDO> {
 }

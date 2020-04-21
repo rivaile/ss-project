@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleDO> implements ISystemRoleService {
 
     @Autowired
-    private SysRoleUserMapper sysRoleUserMapper;
+    private SystemRoleUserMapper systemRoleUserMapper;
 
     @Autowired
     private SystemRoleAuthMapper systemRoleAuthMapper;
@@ -40,40 +40,68 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
     @Autowired
     private SystemAuthModuleService systemAuthoduleService;
 
+    @Override
+    public void addRole(SystemRoleRequest param) {
 
-    public void save(SystemRoleRequest param) {
+        int count = count(new QueryWrapper<SystemRoleDO>().lambda()
+                .eq(SystemRoleDO::getName, param.getName()));
+        if (count > 0) {
+            throw new BusinessException(ReturnCode.ROLE_NAME_EXSIT_ERROR);
+        }
+
         // 校验角色是否存在
-        SystemRoleDO sysRole = new SystemRoleDO();
-        BeanUtils.copyProperties(param, sysRole);
-        sysRole.setOperateIp("127.0.0.1");
-        sysRole.setOperator("system");
-        sysRole.setOperateTime(new Date());
-        // todo: 操作日志 > 可以使用aop实现
-        if (!save(sysRole)) throw new BusinessException(ReturnCode.INTERNAL_SERVER_ERROR);
-    }
-
-    public void update(SystemRoleRequest param) {
-
         SystemRoleDO role = new SystemRoleDO();
-        BeanUtils.copyProperties(param,
-                Preconditions.checkNotNull(getById(param.getId()), "待更新的角色不存在"));
+        BeanUtils.copyProperties(param, role);
         role.setOperateIp("127.0.0.1");
         role.setOperator("system");
         role.setOperateTime(new Date());
-        if (!updateById(role)) throw new BusinessException("更新失败");
+
+        save(role);
     }
 
-    public List<SystemRoleDO> listAll() {
+    @Override
+    public void updateRole(Integer id, SystemRoleRequest param) {
 
-        return list();
+        Preconditions.checkNotNull(getById(id), "待更新的角色不存在!");
+
+        int count = count(new QueryWrapper<SystemRoleDO>().lambda()
+                .eq(SystemRoleDO::getName, param.getName())
+                .ne(SystemRoleDO::getId, id)
+        );
+        if (count > 0) {
+            throw new BusinessException(ReturnCode.ROLE_NAME_EXSIT_ERROR);
+        }
+
+        SystemRoleDO role = new SystemRoleDO();
+        BeanUtils.copyProperties(param, role);
+
+        role.setId(id);
+        role.setOperateIp("127.0.0.1");
+        role.setOperator("system");
+        role.setOperateTime(new Date());
+        updateById(role);
     }
+
+
+
+    @Override
+    public IPage<SystemRoleDO> pageList(PageRequest request) {
+        Page page = new Page();
+        page.setCurrent(request.getCurrent());
+        page.setSize(request.getPageSize());
+        page.setOrders(request.getOrders());
+        IPage<SystemRoleDO> pageResult = page(page, new QueryWrapper<SystemRoleDO>().lambda());
+        return pageResult;
+    }
+
+
 
     public List<SystemRoleDO> getRoleListByUserId(int userId) {
 
-        List<Integer> roleIdList = sysRoleUserMapper.selectList(new QueryWrapper<SysRoleUser>()
+        List<Integer> roleIdList = systemRoleUserMapper.selectList(new QueryWrapper<SystemRoleUserDO>()
                 .lambda()
-                .select(SysRoleUser::getId)
-                .eq(SysRoleUser::getRoleId, userId))
+                .select(SystemRoleUserDO::getId)
+                .eq(SystemRoleUserDO::getRoleId, userId))
                 .stream()
                 .map(s -> s.getId())
                 .collect(Collectors.toList());
@@ -89,11 +117,11 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
         List<SystemAuthDO> userAuthList = getCurrentUserAclList();
         // 2. 当前角色分配的权限点
 //        List<SystemAuthDO> roleAuthList = getRoleAuthList(roleId);
-        List<Integer> authIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
-                .select(SysRoleAcl::getAclId)
-                .eq(SysRoleAcl::getRoleId, roleId))
+        List<Integer> authIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SystemRoleAuthDO>().lambda()
+                .select(SystemRoleAuthDO::getAuthId)
+                .eq(SystemRoleAuthDO::getRoleId, roleId))
                 .stream()
-                .map(it -> it.getAclId())
+                .map(it -> it.getAuthId())
                 .distinct()
                 .collect(Collectors.toList());
         ;
@@ -147,11 +175,11 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
     }
 
     public List<SystemAuthDO> getRoleAuthList(int roleId) {
-        List<Integer> authIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SysRoleAcl>().lambda()
-                .select(SysRoleAcl::getAclId)
-                .eq(SysRoleAcl::getRoleId, roleId))
+        List<Integer> authIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SystemRoleAuthDO>().lambda()
+                .select(SystemRoleAuthDO::getAuthId)
+                .eq(SystemRoleAuthDO::getRoleId, roleId))
                 .stream()
-                .map(it -> it.getAclId())
+                .map(it -> it.getAuthId())
                 .distinct()
                 .collect(Collectors.toList());
         if (CollectionUtils.isEmpty(authIdList)) {
@@ -171,31 +199,31 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
 //            return systemAuthMapper.selectList(null);
 //        }
 
-        List<Integer> userRoleIdList = sysRoleUserMapper.selectList(new QueryWrapper<SysRoleUser>()
+        List<Integer> userRoleIdList = systemRoleUserMapper.selectList(new QueryWrapper<SystemRoleUserDO>()
                 .lambda()
-                .select(SysRoleUser::getRoleId)
-                .eq(SysRoleUser::getId, userId))
+                .select(SystemRoleUserDO::getRoleId)
+                .eq(SystemRoleUserDO::getId, userId))
                 .stream().map(it -> it.getRoleId())
                 .collect(Collectors.toList());
         if (CollectionUtils.isEmpty(userRoleIdList)) {
             return Lists.newArrayList();
         }
 
-        List<Integer> userAclIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SysRoleAcl>()
+        List<Integer> userAuthIdList = systemRoleAuthMapper.selectList(new QueryWrapper<SystemRoleAuthDO>()
                 .lambda()
-                .select(SysRoleAcl::getAclId)
-                .in(SysRoleAcl::getRoleId, userRoleIdList))
+                .select(SystemRoleAuthDO::getAuthId)
+                .in(SystemRoleAuthDO::getRoleId, userRoleIdList))
                 .stream()
-                .map(it -> it.getAclId())
+                .map(it -> it.getAuthId())
                 .distinct()
                 .collect(Collectors.toList());
 
-        if (CollectionUtils.isEmpty(userAclIdList)) {
+        if (CollectionUtils.isEmpty(userAuthIdList)) {
             return Lists.newArrayList();
         }
 
         return systemAuthMapper.selectList(new QueryWrapper<SystemAuthDO>().lambda()
-                .in(SystemAuthDO::getId, userAclIdList));
+                .in(SystemAuthDO::getId, userAuthIdList));
     }
 
     public boolean isSuperAdmin() {
@@ -209,15 +237,5 @@ public class SystemRoleService extends BaseService<SystemRoleMapper, SystemRoleD
     }
 
 
-    @Override
-    public IPage<SystemRoleDO> pageList(PageRequest request) {
-
-        Page page = new Page();
-        page.setCurrent(request.getCurrent());
-        page.setSize(request.getPageSize());
-        page.setOrders(request.getOrders());
-        IPage<SystemRoleDO> pageResult = page(page, new QueryWrapper<SystemRoleDO>().lambda());
-        return pageResult;
-    }
 }
 

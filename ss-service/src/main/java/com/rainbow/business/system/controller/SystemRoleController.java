@@ -1,7 +1,7 @@
 package com.rainbow.business.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.rainbow.business.system.service.impl.SysRoleAclService;
+import com.rainbow.business.system.service.impl.SystemRoleAuthService;
 import com.rainbow.business.system.service.impl.SysRoleUserService;
 import com.rainbow.business.system.service.impl.SystemRoleService;
 import com.rainbow.domain.PageRequest;
@@ -36,20 +36,22 @@ public class SystemRoleController {
     private SystemRoleService systemRoleService;
 
     @Autowired
-    private SysRoleAclService sysRoleAclService;
+    private SystemRoleAuthService systemRoleAuthService;
 
     @Autowired
     private SysRoleUserService sysRoleUserService;
 
     @PostMapping
     public RestResult addRole(@RequestBody @Valid SystemRoleRequest requst) {
-        systemRoleService.save(requst);
+        systemRoleService.addRole(requst);
         return RestResult.success();
     }
 
-    @PutMapping
-    public RestResult updateRole(@RequestBody @Valid SystemRoleRequest req) {
-        systemRoleService.update(req);
+    @PutMapping("/{id}")
+    public RestResult updateRole(
+            @PathVariable Integer id,
+            @RequestBody @Valid SystemRoleRequest requst) {
+        systemRoleService.updateRole(id, requst);
         return RestResult.success();
     }
 
@@ -87,13 +89,12 @@ public class SystemRoleController {
      *
      * @return
      */
-    @PostMapping("/acls/{roleId}")
-    public RestResult changeRoleAcls(@PathVariable int roleId,
-                                             @RequestParam(value = "aclIds", required = false, defaultValue = "") String aclIds) {
+    @PostMapping("/{id}/auth")
+    public RestResult changeRoleAuths(@PathVariable Integer id,
+                                      @RequestParam(value = "authIds", required = false, defaultValue = "") String authIds) {
 
-        List<Integer> aclIdList = StringUtil.splitToListInt(aclIds);
-
-        sysRoleAclService.changeRoleAcls(roleId, aclIdList);
+        List<Integer> authIdList = StringUtil.splitToListInt(authIds);
+        systemRoleAuthService.changeRoleAuths(id, authIdList);
 
         return RestResult.success();
     }
@@ -105,7 +106,7 @@ public class SystemRoleController {
      */
     @PostMapping("/users/{roleId}")
     public RestResult changeRoleUsers(@PathVariable int roleId,
-                                              @RequestParam(value = "userIds", required = false, defaultValue = "") String userIds) {
+                                      @RequestParam(value = "userIds", required = false, defaultValue = "") String userIds) {
         List<Integer> userIdList = StringUtil.splitToListInt(userIds);
         sysRoleUserService.changeRoleUsers(roleId, userIdList);
         return RestResult.success();
