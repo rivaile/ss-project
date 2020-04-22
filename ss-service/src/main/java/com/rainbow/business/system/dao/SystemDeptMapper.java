@@ -1,7 +1,7 @@
 package com.rainbow.business.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rainbow.domain.SysDept;
+import com.rainbow.domain.SystemDeptDO;
 
 /**
  * @author: denglin
@@ -9,5 +9,5 @@ import com.rainbow.domain.SysDept;
  * @Description:
  * @date: 2019-09-25 11:20
  */
-public interface SysDeptMapper extends BaseMapper<SysDept> {
+public interface SystemDeptMapper extends BaseMapper<SystemDeptDO> {
 }

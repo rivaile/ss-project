@@ -95,7 +95,6 @@ public class SystemRoleController {
 
         List<Integer> authIdList = StringUtil.splitToListInt(authIds);
         systemRoleAuthService.changeRoleAuths(id, authIdList);
-
         return RestResult.success();
     }
 

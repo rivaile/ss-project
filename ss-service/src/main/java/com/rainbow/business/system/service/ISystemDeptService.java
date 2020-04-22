@@ -11,7 +11,7 @@ import java.util.List;
  * @Description:
  * @date: 2019-09-25 11:22
  */
-public interface ISysDeptService {
+public interface ISystemDeptService {
 
     void addDept(SysDeptReq deptReq);
 

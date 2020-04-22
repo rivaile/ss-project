@@ -3,14 +3,14 @@ package com.rainbow.business.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.base.Preconditions;
-import com.rainbow.business.system.dao.SysDeptMapper;
+import com.rainbow.business.system.dao.SystemDeptMapper;
 import com.rainbow.business.system.dao.SystemUserMapper;
-import com.rainbow.domain.SysDept;
+import com.rainbow.domain.SystemDeptDO;
 import com.rainbow.domain.SysDeptExt;
 import com.rainbow.domain.SystemUserDO;
 import com.rainbow.exception.BusinessException;
 import com.rainbow.common.BaseService;
-import com.rainbow.business.system.service.ISysDeptService;
+import com.rainbow.business.system.service.ISystemDeptService;
 import com.rainbow.vo.SysDeptReq;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @date: 2019-09-25 11:21
  */
 @Service
-public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implements ISysDeptService {
+public class SystemDeptService extends BaseService<SystemDeptMapper, SystemDeptDO> implements ISystemDeptService {
 
     private static final String ROOT = "0";
 
@@ -42,13 +42,13 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
     @Override
     public void addDept(SysDeptReq deptReq) {
 
-        if (baseMapper.selectCount(new QueryWrapper<SysDept>()
+        if (baseMapper.selectCount(new QueryWrapper<SystemDeptDO>()
                 .lambda()
-                .eq(SysDept::getParentId, deptReq.getParentId())
-                .eq(SysDept::getName, deptReq.getName())) > 0)
+                .eq(SystemDeptDO::getParentId, deptReq.getParentId())
+                .eq(SystemDeptDO::getName, deptReq.getName())) > 0)
             throw new BusinessException("同一层级下存在相同名称的部门");
 
-        SysDept dept = new SysDept();
+        SystemDeptDO dept = new SystemDeptDO();
         BeanUtils.copyProperties(deptReq, dept);
         dept.setLevel(getById(dept.getParentId()).getLevel()
                 + SEPARATOR + dept.getParentId());
@@ -62,8 +62,8 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
     public void deleteDept(Long deptId) {
 
         Preconditions.checkNotNull(getById(deptId), "待删除的部门不存在，无法删除!");
-        if (baseMapper.selectCount(new QueryWrapper<SysDept>()
-                .lambda().eq(SysDept::getParentId, deptId)) > 0)
+        if (baseMapper.selectCount(new QueryWrapper<SystemDeptDO>()
+                .lambda().eq(SystemDeptDO::getParentId, deptId)) > 0)
             throw new BusinessException("当前部门下面有子部门，无法删除!");
 
         if (userMapper.selectCount(new QueryWrapper<SystemUserDO>()
@@ -76,16 +76,16 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
     @Override
     public void updateDept(SysDeptReq deptReq) {
 
-        SysDept before = getById(deptReq.getId());
+        SystemDeptDO before = getById(deptReq.getId());
         Preconditions.checkNotNull(before, "待更新的部门不存在");
 
-        if (baseMapper.selectCount(new QueryWrapper<SysDept>()
+        if (baseMapper.selectCount(new QueryWrapper<SystemDeptDO>()
                 .lambda()
-                .eq(SysDept::getParentId, deptReq.getParentId())
-                .eq(SysDept::getName, deptReq.getName())) > 0)
+                .eq(SystemDeptDO::getParentId, deptReq.getParentId())
+                .eq(SystemDeptDO::getName, deptReq.getName())) > 0)
             throw new BusinessException("同一层级下存在相同名称的部门");
 
-        SysDept after = new SysDept();
+        SystemDeptDO after = new SystemDeptDO();
         BeanUtils.copyProperties(before, after);
         after.setLevel(getById(after.getParentId()).getLevel()
                 + SEPARATOR + after.getParentId());
@@ -96,8 +96,8 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
         String oldLevelPrefix = before.getLevel();
 
         if (!newLevelPrefix.equals(oldLevelPrefix)) {
-            List<SysDept> deptList = list(new QueryWrapper<SysDept>()
-                    .lambda().like(SysDept::getLevel, oldLevelPrefix + " || .%"));
+            List<SystemDeptDO> deptList = list(new QueryWrapper<SystemDeptDO>()
+                    .lambda().like(SystemDeptDO::getLevel, oldLevelPrefix + " || .%"));
             if (CollectionUtils.isNotEmpty(deptList)) {
                 deptList.forEach(it -> it.setLevel(newLevelPrefix + it.getLevel().substring(oldLevelPrefix.length())));
                 updateBatchById(deptList);
@@ -110,11 +110,11 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
     @Override
     public List<SysDeptExt> getDeptListTree() {
 
-        List<SysDept> deptList = list();
+        List<SystemDeptDO> deptList = list();
 
         List<SysDeptExt> rootDept = deptList.stream()
                 .filter(it -> it.getLevel().equals(ROOT))
-                .sorted(Comparator.comparingInt(SysDept::getSeq))
+                .sorted(Comparator.comparingInt(SystemDeptDO::getSeq))
                 .map(it -> {
                     SysDeptExt deptExt = new SysDeptExt();
                     BeanUtils.copyProperties(it, deptExt);
@@ -139,7 +139,7 @@ public class SysDeptService extends BaseService<SysDeptMapper, SysDept> implemen
             List<SysDeptExt> nextDeptList = levelDeptMap.get(nextLevel);
 
             if (CollectionUtils.isNotEmpty(nextDeptList)) {
-                Collections.sort(nextDeptList, Comparator.comparingInt(SysDept::getSeq));
+                Collections.sort(nextDeptList, Comparator.comparingInt(SystemDeptDO::getSeq));
                 it.setChildren(nextDeptList);
                 deptList2Tree(nextDeptList, nextLevel, levelDeptMap);
             }

@@ -10,7 +10,7 @@ import java.util.List;
  * @Description:
  * @date: 2019-09-25 11:42
  */
-public class SysDeptExt extends SysDept {
+public class SysDeptExt extends SystemDeptDO {
 
     private List<SysDeptExt> children = Lists.newArrayList();
 

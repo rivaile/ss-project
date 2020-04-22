@@ -1,7 +1,7 @@
 package com.rainbow.business.system.controller;
 
 import com.rainbow.domain.SysDeptExt;
-import com.rainbow.business.system.service.impl.SysDeptService;
+import com.rainbow.business.system.service.impl.SystemDeptService;
 import com.rainbow.vo.TreeData;
 import com.rainbow.vo.RestResult;
 import com.rainbow.vo.SysDeptReq;
@@ -20,15 +20,15 @@ import java.util.stream.Collectors;
  */
 
 @RestController
-@RequestMapping("/sys/dept")
-public class SysDeptController {
+@RequestMapping("/system/dept")
+public class SystemDeptController {
 
     @Autowired
-    private SysDeptService sysDeptService;
+    private SystemDeptService systemDeptService;
 
     @PostMapping
     public RestResult addDept(@Valid @RequestBody SysDeptReq deptReq) {
-        sysDeptService.addDept(deptReq);
+        systemDeptService.addDept(deptReq);
 
         RestResult<Object> response = RestResult.success(null);
         return response;
@@ -37,21 +37,20 @@ public class SysDeptController {
 
     @DeleteMapping("/{deptId}")
     public RestResult deleteDept(@PathVariable Long deptId) {
-        sysDeptService.deleteDept(deptId);
-        return RestResult.success(null);
+        systemDeptService.deleteDept(deptId);
+        return RestResult.success();
     }
 
 
     @PutMapping
     public RestResult updateDept(@Valid @RequestBody SysDeptReq deptReq) {
-        sysDeptService.updateDept(deptReq);
-        return RestResult.success(null);
+        systemDeptService.updateDept(deptReq);
+        return RestResult.success();
     }
 
-
     @GetMapping
-    public List<TreeData> getDeptListTree() {
-        return tree(sysDeptService.getDeptListTree());
+    public RestResult<List<TreeData>> getDeptListTree() {
+        return RestResult.success(tree(systemDeptService.getDeptListTree()));
     }
 
     private List<TreeData> tree(List<SysDeptExt> list) {
