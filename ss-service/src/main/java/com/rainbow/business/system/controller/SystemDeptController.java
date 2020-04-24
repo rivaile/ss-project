@@ -1,10 +1,10 @@
 package com.rainbow.business.system.controller;
 
-import com.rainbow.domain.SysDeptExt;
+import com.rainbow.domain.SystemDeptBO;
 import com.rainbow.business.system.service.impl.SystemDeptService;
+import com.rainbow.vo.SystemDeptRequest;
 import com.rainbow.vo.TreeData;
 import com.rainbow.vo.RestResult;
-import com.rainbow.vo.SysDeptReq;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,33 +27,31 @@ public class SystemDeptController {
     private SystemDeptService systemDeptService;
 
     @PostMapping
-    public RestResult addDept(@Valid @RequestBody SysDeptReq deptReq) {
-        systemDeptService.addDept(deptReq);
-
-        RestResult<Object> response = RestResult.success(null);
-        return response;
+    public RestResult addDept(@Valid @RequestBody SystemDeptRequest request) {
+        systemDeptService.addDept(request);
+        return RestResult.success();
     }
 
 
     @DeleteMapping("/{deptId}")
-    public RestResult deleteDept(@PathVariable Long deptId) {
+    public RestResult deleteDept(@PathVariable Integer deptId) {
         systemDeptService.deleteDept(deptId);
         return RestResult.success();
     }
 
 
     @PutMapping
-    public RestResult updateDept(@Valid @RequestBody SysDeptReq deptReq) {
+    public RestResult updateDept(@Valid @RequestBody SystemDeptRequest deptReq) {
         systemDeptService.updateDept(deptReq);
         return RestResult.success();
     }
 
     @GetMapping
-    public RestResult<List<TreeData>> getDeptListTree() {
-        return RestResult.success(tree(systemDeptService.getDeptListTree()));
+    public RestResult<List<SystemDeptBO>> getDeptListTree() {
+        return RestResult.success(systemDeptService.getDeptListTree());
     }
 
-    private List<TreeData> tree(List<SysDeptExt> list) {
+    private List<TreeData> tree(List<SystemDeptBO> list) {
         return list.stream().map(it -> {
             TreeData treeObj = new TreeData();
             treeObj.setTitle(it.getName());

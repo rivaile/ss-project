@@ -1,7 +1,7 @@
 package com.rainbow.business.system.service;
 
-import com.rainbow.domain.SysDeptExt;
-import com.rainbow.vo.SysDeptReq;
+import com.rainbow.domain.SystemDeptBO;
+import com.rainbow.vo.SystemDeptRequest;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import java.util.List;
  */
 public interface ISystemDeptService {
 
-    void addDept(SysDeptReq deptReq);
+    void addDept(SystemDeptRequest deptReq);
 
-    void deleteDept(Long deptId);
+    void deleteDept(Integer deptId);
 
-    void updateDept(SysDeptReq deptReq);
+    void updateDept(SystemDeptRequest deptReq);
 
     /**
      * 第一种:全部查询出来,第二种:点击查询.
      *
      * @return
      */
-    List<SysDeptExt> getDeptListTree();
+    List<SystemDeptBO> getDeptListTree();
 
 }
