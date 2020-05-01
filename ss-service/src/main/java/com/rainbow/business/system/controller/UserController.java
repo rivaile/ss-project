@@ -1,7 +1,7 @@
 package com.rainbow.business.system.controller;
 
-import com.rainbow.dto.User;
-import com.rainbow.dto.UserQueryCondition;
+import com.rainbow.domain.dto.User;
+import com.rainbow.domain.dto.UserQueryCondition;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;

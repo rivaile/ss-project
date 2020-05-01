@@ -3,7 +3,7 @@ package com.rainbow.business.system.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.rainbow.domain.PageRequest;
 import com.rainbow.domain.SystemAuthDO;
-import com.rainbow.vo.AuthRequest;
+import com.rainbow.domain.vo.AuthRequest;
 
 /**
  * @author: denglin

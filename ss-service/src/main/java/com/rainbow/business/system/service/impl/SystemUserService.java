@@ -20,9 +20,8 @@ import com.rainbow.business.system.service.ISystemUserService;
 import com.rainbow.enums.ReturnCode;
 import com.rainbow.enums.SystemUserStatus;
 import com.rainbow.exception.BusinessException;
-import com.rainbow.util.IpUtil;
-import com.rainbow.vo.req.PageSystemUserRequest;
-import com.rainbow.vo.req.SystemUserRequest;
+import com.rainbow.domain.vo.req.PageSystemUserRequest;
+import com.rainbow.domain.vo.req.SystemUserRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -84,7 +83,7 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
 //        user.setPassword(passwordEncoder.encode("123456"));
         user.setPassword("123456");
         user.setOperator("system");
-        user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+        user.setOperateIp("127.0.0.1");
         user.setOperateTime(new Date());
 
         // todo: 操作日志 > 可以使用aop实现
@@ -128,7 +127,8 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
 
         user.setId(id);
         user.setOperator("system");
-        user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+//        user.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+        user.setOperateIp("127.0.0.1");
         user.setOperateTime(new Date());
         return updateById(user);
     }
@@ -144,8 +144,9 @@ public class SystemUserService extends BaseService<SystemUserMapper, SystemUserD
         IPage<SystemUserDO> pageResult = page(page, new QueryWrapper<SystemUserDO>().lambda()
                 .eq(StringUtils.isNotEmpty(request.getUsername()), SystemUserDO::getUsername, request.getUsername())
                 .eq(StringUtils.isNotEmpty(request.getTelephone()), SystemUserDO::getTelephone, request.getTelephone())
-                .eq(request.getDeptId() != null, SystemUserDO::getDeptId, request.getDeptId()));
-
+                .eq(request.getDeptId() != null, SystemUserDO::getDeptId, request.getDeptId())
+                .eq(request.getStatus() != null, SystemUserDO::getStatus, request.getStatus())
+        );
         return pageResult;
     }
 

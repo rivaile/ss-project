@@ -1,7 +1,7 @@
 package com.rainbow.business.system.service;
 
 import com.rainbow.domain.SystemDeptBO;
-import com.rainbow.vo.SystemDeptRequest;
+import com.rainbow.domain.vo.SystemDeptRequest;
 
 import java.util.List;
 

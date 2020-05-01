@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainbow.domain.PageRequest;
 import com.rainbow.domain.SystemRoleDO;
-import com.rainbow.vo.SystemRoleRequest;
+import com.rainbow.domain.vo.SystemRoleRequest;
 
 /**
  * @author: denglin

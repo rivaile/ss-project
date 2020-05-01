@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainbow.domain.SystemAuthModuleBO;
 import com.rainbow.domain.SystemUserDO;
-import com.rainbow.vo.req.PageSystemUserRequest;
-import com.rainbow.vo.req.SystemUserRequest;
+import com.rainbow.domain.vo.req.PageSystemUserRequest;
+import com.rainbow.domain.vo.req.SystemUserRequest;
 
 import java.util.List;
 

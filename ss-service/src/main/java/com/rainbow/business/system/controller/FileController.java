@@ -1,6 +1,6 @@
 package com.rainbow.business.system.controller;
 
-import com.rainbow.dto.FileInfo;
+import com.rainbow.domain.dto.FileInfo;
 import org.apache.commons.io.IOUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

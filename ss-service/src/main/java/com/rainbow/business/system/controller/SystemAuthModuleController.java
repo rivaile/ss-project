@@ -1,7 +1,7 @@
 package com.rainbow.business.system.controller;
 
 import com.rainbow.business.system.service.impl.SystemAuthModuleService;
-import com.rainbow.vo.*;
+import com.rainbow.domain.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

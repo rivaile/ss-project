@@ -58,5 +58,4 @@ public class BrowserSecurityBeanConfig {
     public LogoutSuccessHandler logoutSuccessHandler() {
         return new BrowserLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
     }
-
 }

@@ -12,7 +12,7 @@ import com.rainbow.exception.BusinessException;
 import com.rainbow.common.BaseService;
 import com.rainbow.business.system.service.ISystemDeptService;
 import com.rainbow.util.LevelUtil;
-import com.rainbow.vo.SystemDeptRequest;
+import com.rainbow.domain.vo.SystemDeptRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
@@ -79,18 +79,18 @@ public class SystemDeptService extends BaseService<SystemDeptMapper, SystemDeptD
     }
 
     @Override
-    public void updateDept(SystemDeptRequest deptReq) {
+    public void updateDept(SystemDeptRequest param) {
 
-        SystemDeptDO before = getById(deptReq.getId());
+        SystemDeptDO before = getById(param.getId());
         Preconditions.checkNotNull(before, "待更新的部门不存在");
 
         int count = count(new QueryWrapper<SystemDeptDO>().lambda()
-                .eq(SystemDeptDO::getParentId, deptReq.getParentId())
-                .eq(SystemDeptDO::getName, deptReq.getName()));
+                .eq(SystemDeptDO::getParentId, param.getParentId())
+                .eq(SystemDeptDO::getName, param.getName()));
         if (count > 0) throw new BusinessException("同一层级下存在相同名称的部门");
 
         SystemDeptDO after = new SystemDeptDO();
-        BeanUtils.copyProperties(before, after);
+        BeanUtils.copyProperties(param, after);
 
         String level = LevelUtil.calculateLevel(getById(after.getParentId()).getLevel(), after.getParentId());
         after.setLevel(level);
@@ -101,8 +101,8 @@ public class SystemDeptService extends BaseService<SystemDeptMapper, SystemDeptD
         String oldLevelPrefix = before.getLevel();
 
         if (!newLevelPrefix.equals(oldLevelPrefix)) {
-            List<SystemDeptDO> deptList = list(new QueryWrapper<SystemDeptDO>()
-                    .lambda().like(SystemDeptDO::getLevel, oldLevelPrefix + " || .%"));
+            List<SystemDeptDO> deptList = list(new QueryWrapper<SystemDeptDO>().lambda()
+                    .likeRight(SystemDeptDO::getLevel, oldLevelPrefix + "."));
             if (CollectionUtils.isNotEmpty(deptList)) {
                 deptList.forEach(it -> it.setLevel(newLevelPrefix + it.getLevel().substring(oldLevelPrefix.length())));
                 updateBatchById(deptList);

@@ -2,9 +2,9 @@ package com.rainbow.business.system.controller;
 
 import com.rainbow.domain.SystemDeptBO;
 import com.rainbow.business.system.service.impl.SystemDeptService;
-import com.rainbow.vo.SystemDeptRequest;
-import com.rainbow.vo.TreeData;
-import com.rainbow.vo.RestResult;
+import com.rainbow.domain.vo.SystemDeptRequest;
+import com.rainbow.domain.vo.TreeData;
+import com.rainbow.domain.vo.RestResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +48,8 @@ public class SystemDeptController {
 
     @GetMapping
     public RestResult<List<SystemDeptBO>> getDeptListTree() {
-        return RestResult.success(systemDeptService.getDeptListTree());
+        List<SystemDeptBO> listTree = systemDeptService.getDeptListTree();
+        return RestResult.success(listTree);
     }
 
     private List<TreeData> tree(List<SystemDeptBO> list) {

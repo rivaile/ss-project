@@ -10,7 +10,7 @@ import com.rainbow.business.system.service.ISystemAuthService;
 import com.rainbow.domain.PageRequest;
 import com.rainbow.domain.SystemAuthDO;
 import com.rainbow.exception.BusinessException;
-import com.rainbow.vo.AuthRequest;
+import com.rainbow.domain.vo.AuthRequest;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 

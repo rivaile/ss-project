@@ -18,6 +18,4 @@
     <select id="selectPageVo" resultType="com.rainbow.domain.SystemUserDO">
     SELECT * FROM sys_user
 </select>
-
-
 </mapper>

@@ -3,9 +3,8 @@ package com.rainbow.business.system.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.rainbow.domain.SystemAuthModuleBO;
 import com.rainbow.domain.SystemAuthModuleDO;
-import com.rainbow.vo.AuthModuleRequest;
-import com.rainbow.vo.AuthModuleTreeData;
-import com.rainbow.vo.TreeData;
+import com.rainbow.domain.vo.AuthModuleRequest;
+import com.rainbow.domain.vo.AuthModuleTreeData;
 
 import java.util.List;
 
