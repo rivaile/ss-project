@@ -44,11 +44,8 @@ public class FileController {
 
             response.setContentType("application/x-download");
             response.addHeader("Content-Disposition", "attachment;filename=test.txt");
-
             IOUtils.copy(inputStream, outputStream);
             outputStream.flush();
         }
-
     }
-
 }

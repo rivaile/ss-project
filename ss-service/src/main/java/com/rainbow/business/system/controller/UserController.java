@@ -121,6 +121,7 @@ public class UserController {
 
     /**
      * 解析jwt信息
+     *
      * @param user
      * @return
      */
@@ -141,14 +142,13 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public void getUser(@RequestBody List<User> users){
+    public void getUser(@RequestBody List<User> users) {
         System.out.println(users);
     }
 
 
-
     @GetMapping("/xxx")
-    public void getUser1(){
+    public void getUser1() {
         System.out.println("---GetMapping---");
     }
 
